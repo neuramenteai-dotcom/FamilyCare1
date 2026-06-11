@@ -2151,5 +2151,209 @@ renderHomeProfiles();
 filterProfiles('tutti');
 updateNavUI();
 </script>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   INTEGRAZIONI REALI — incolla qui le chiavi per attivare i servizi.
+   Finché un campo resta vuoto, quella funzione lavora in modalità demo.
+   Istruzioni passo-passo: vedi SETUP.md nel repository.
+═══════════════════════════════════════════════════════════════ */
+var CONFIG={
+  // 1. SUPABASE (gratis) — account reali + email di conferma reali + database profili
+  //    Crea progetto su supabase.com → Settings → API → copia URL e chiave "anon public"
+  SUPABASE_URL:'',
+  SUPABASE_ANON_KEY:'',
+
+  // 2. DIDIT (gratis, 500 verifiche/mese) — verifica identità reale: documento + liveness + face match
+  //    business.didit.me → crea workflow KYC → copia lo Unilink (es. https://verify.didit.me/...)
+  DIDIT_UNILINK:'',
+
+  // 3. EMAILJS (gratis, 200 email/mese) — invio email di notifica dal sito
+  //    emailjs.com → Email Service + Template con variabili {{to_email}}, {{subject}}, {{message}}
+  EMAILJS_PUBLIC_KEY:'',
+  EMAILJS_SERVICE_ID:'',
+  EMAILJS_TEMPLATE_ID:''
+};
+
+var USE_SUPA=!!(CONFIG.SUPABASE_URL&&CONFIG.SUPABASE_ANON_KEY);
+var USE_DIDIT=!!CONFIG.DIDIT_UNILINK;
+var USE_EMAILJS=!!(CONFIG.EMAILJS_PUBLIC_KEY&&CONFIG.EMAILJS_SERVICE_ID&&CONFIG.EMAILJS_TEMPLATE_ID);
+var supa=null;
+
+function loadScript(src,cb){var s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s)}
+
+/* ── Toast di conferma azioni reali ── */
+function toast(msg){
+  var t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0A5C42;color:white;padding:13px 22px;border-radius:12px;font-size:13.5px;font-weight:600;z-index:3000;box-shadow:0 8px 32px rgba(0,0,0,.3);max-width:90%;text-align:center';
+  t.textContent=msg;document.body.appendChild(t);
+  setTimeout(function(){t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(function(){t.remove()},400)},3500);
+}
+
+/* ── EMAIL: reale via EmailJS se configurato, altrimenti demo a schermo ── */
+var demoSendEmail=sendEmail;
+sendEmail=function(to,subject,bodyHtml,onClose){
+  if(USE_EMAILJS&&window.emailjs){
+    emailjs.send(CONFIG.EMAILJS_SERVICE_ID,CONFIG.EMAILJS_TEMPLATE_ID,{
+      to_email:to,subject:subject,
+      message:bodyHtml.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'')
+    }).then(function(){
+      toast('✉ Email inviata a '+to);
+      if(onClose)onClose();
+    }).catch(function(err){
+      console.error('EmailJS:',err);
+      demoSendEmail(to,subject,bodyHtml,onClose);
+    });
+  } else demoSendEmail(to,subject,bodyHtml,onClose);
+};
+if(USE_EMAILJS)loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js',function(){
+  emailjs.init({publicKey:CONFIG.EMAILJS_PUBLIC_KEY});
+});
+
+/* ── SUPABASE: account reali + email di conferma reali + profili nel database ── */
+if(USE_SUPA)loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',function(){
+  supa=window.supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY);
+
+  // sessione esistente o di ritorno dal link email di conferma
+  supa.auth.getSession().then(function(res){
+    var s=res.data.session;
+    if(s&&s.user){
+      var m=s.user.user_metadata||{};
+      dbSetSession({name:m.name||s.user.email,email:s.user.email,role:m.role||'fam'});
+      updateNavUI();applyRole((m.role||'fam')==='fam'?'fam':'lav');
+      if(location.hash.indexOf('access_token')>=0){
+        history.replaceState(null,'',location.pathname);
+        toast('✓ Email confermata, benvenuto '+(m.name||'').split(' ')[0]+'!');
+        if((m.role||'fam')==='fam')goPage('profili');
+      }
+    }
+  });
+  supaLoadProfiles();
+
+  // REGISTRAZIONE reale: Supabase invia l'email di conferma vera
+  authRegister=function(){
+    var nome=document.getElementById('rg-nome').value.trim();
+    var email=document.getElementById('rg-email').value.trim();
+    var pass=document.getElementById('rg-pass').value;
+    var role=document.getElementById('rg-role').value;
+    if(!nome||email.indexOf('@')<0||pass.length<6){authNotice('Compila nome, email valida e password di almeno 6 caratteri.');return}
+    if(!document.getElementById('rg-gdpr').checked){authNotice('Devi accettare il trattamento dati GDPR.');return}
+    supa.auth.signUp({email:email,password:pass,options:{
+      data:{name:nome,role:role},
+      emailRedirectTo:location.origin+location.pathname
+    }}).then(function(res){
+      if(res.error){authNotice('Errore: '+res.error.message);return}
+      authOk('✉ Ti abbiamo inviato una email VERA a '+email+'. Apri il link di conferma per attivare l\'account, poi torna qui e accedi.');
+      authTab('login');
+      document.getElementById('lg-email').value=email;
+    });
+  };
+
+  // LOGIN reale
+  authLogin=function(){
+    var email=document.getElementById('lg-email').value.trim();
+    var pass=document.getElementById('lg-pass').value;
+    supa.auth.signInWithPassword({email:email,password:pass}).then(function(res){
+      if(res.error){
+        if(/confirm/i.test(res.error.message))authNotice('Devi prima confermare l\'email: controlla la posta (anche lo spam).');
+        else authNotice('Email o password errati.');
+        return;
+      }
+      var u=res.data.user,m=u.user_metadata||{};
+      dbSetSession({name:m.name||u.email,email:u.email,role:m.role||'fam'});
+      updateNavUI();applyRole((m.role||'fam')==='fam'?'fam':'lav');
+      supaLoadProfiles();
+      if((m.role||'fam')==='fam'){goPage(pendingPage||'profili');pendingPage=null}
+      else{goPage('lavoratrici');authOk('Bentornata!')}
+    });
+  };
+
+  var demoLogout=logout;
+  logout=function(){supa.auth.signOut().then(function(){demoLogout()})};
+});
+
+// carica i profili collaboratrici dal database (tabella: profili_collaboratrici)
+function supaLoadProfiles(){
+  if(!supa)return;
+  supa.from('profili_collaboratrici').select('*').then(function(res){
+    if(res.error||!res.data)return;
+    res.data.forEach(function(row){
+      var id='supa-'+row.id;
+      if(PROFILES.some(function(p){return p.id===id}))return;
+      PROFILES.push({id:id,cat:row.cat||'assistente',name:row.nome,age:'—',zona:row.zona||'Roma',bg:'#0A5C42',
+        rating:5.0,reviews:0,desc:row.descrizione||'Profilo verificato.',
+        skills:(row.skills&&row.skills.length?row.skills:['Identità verificata']),
+        price:'Da concordare',avail:'Disponibile',
+        stats:[{n:'NEW',l:'iscritta'},{n:row.kyc?'✓':'…',l:'identità'},{n:'0',l:'recensioni'}],
+        badges:[row.kyc?'Identità verificata ✓':'In verifica','Documenti OK']});
+    });
+    renderHomeProfiles();
+    if(document.getElementById('page-profili').classList.contains('active'))filterProfiles(currentFilter);
+  });
+}
+
+/* ── DIDIT: verifica identità reale (Unilink, zero backend) ── */
+if(USE_DIDIT){
+  startKYC=function(){
+    document.getElementById('kyc-ovl').classList.add('open');
+    document.body.style.overflow='hidden';
+    // nasconde gli step demo e mostra il pannello Didit
+    for(var i=1;i<=3;i++){document.getElementById('kyc-s'+i).classList.remove('show');document.getElementById('ksb'+i).classList.add('on')}
+    var d=document.getElementById('kyc-didit');
+    if(!d){
+      d=document.createElement('div');
+      d.id='kyc-didit';d.className='kyc-step show';
+      d.innerHTML='<div style="text-align:center;padding:.5rem 0">'
+        +'<div style="width:64px;height:64px;border-radius:50%;background:var(--sage-l);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px">🪪</div>'
+        +'<h4 style="font-family:\'Cormorant Garamond\',serif;font-size:21px;margin-bottom:.5rem">Verifica con Didit</h4>'
+        +'<p style="font-size:13.5px;color:var(--mist);line-height:1.7;max-width:380px;margin:0 auto 1.2rem">Si apre la verifica certificata Didit: documento + selfie con liveness reale. Bastano 2 minuti. Al termine torna qui e premi "Ho completato".</p>'
+        +'<button class="kyc-btn" style="max-width:320px" onclick="window.open(CONFIG.DIDIT_UNILINK,\'_blank\')">Apri la verifica Didit →</button>'
+        +'<button class="kyc-btn" style="max-width:320px;background:var(--blue)" onclick="kycDiditDone()">✓ Ho completato la verifica — continua</button>'
+        +'<button class="kyc-btn alt" style="max-width:320px" onclick="kycCancel()">Annulla</button>'
+        +'</div>';
+      document.querySelector('#kyc-ovl .ovl-box').insertBefore(d,document.querySelector('#kyc-ovl .kyc-provider'));
+      document.querySelector('#kyc-ovl .kyc-provider').innerHTML='Verifica reale eseguita da <b>Didit</b> (500/mese gratuite). L\'esito appare nel tuo Business Console Didit; per la conferma automatica sul sito serve il webhook (vedi SETUP.md).';
+    }
+    d.classList.add('show');
+  };
+}
+function kycDiditDone(){
+  var d=document.getElementById('kyc-didit');
+  if(d)d.classList.remove('show');
+  document.getElementById('kyc-s3').classList.add('show');
+  document.getElementById('kyc-running').style.display='none';
+  document.getElementById('kyc-success').style.display='block';
+}
+
+/* ── kycFinish: salva il profilo anche su Supabase se attivo ── */
+var demoKycFinish=kycFinish;
+kycFinish=function(){
+  if(supa){
+    var nome=document.getElementById('l-nome').value.trim();
+    var email=document.getElementById('l-email').value.trim();
+    var chips=[].slice.call(document.querySelectorAll('#chips-lav .og')).map(function(c){return c.textContent});
+    var cat='assistente';
+    chips.forEach(function(t){
+      if(/colf/i.test(t))cat='colf';else if(/babysitter/i.test(t))cat='babysitter';
+      else if(/dog/i.test(t))cat='dogsitter';else if(/compiti/i.test(t))cat='ripetizioni';
+    });
+    var skills=[].slice.call(document.querySelectorAll('#lav-form .chk input:checked')).slice(0,4).map(function(c){return c.parentElement.textContent.trim()});
+    var pres=document.querySelector('#lav-form textarea[placeholder^="Es.: Mi chiamo"]');
+    supa.from('profili_collaboratrici').insert({
+      nome:nome.split(' ')[0]+' '+((nome.split(' ')[1]||'')[0]||'')+'.',
+      email:email,cat:cat,zona:'Roma',
+      descrizione:(pres&&pres.value.trim())||'Nuova iscritta con identità verificata.',
+      skills:skills,kyc:true
+    }).then(function(res){
+      if(res.error)console.error('Supabase insert:',res.error);
+      else toast('✓ Profilo salvato nel database');
+    });
+  }
+  demoKycFinish();
+};
+
+/* ── Badge di stato integrazioni (visibile in console) ── */
+console.log('[FamilyCare] Supabase:'+(USE_SUPA?'ATTIVO':'demo')+' · Didit:'+(USE_DIDIT?'ATTIVO':'demo')+' · EmailJS:'+(USE_EMAILJS?'ATTIVO':'demo'));
+</script>
+
 </body>
 </html>
