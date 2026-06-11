@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family Care — Badanti e Assistenti Familiari a Roma | Trova o Offri Servizio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:#111;background:#F8F8F6;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
+input,select,textarea{font-family:inherit}
+img{max-width:100%;display:block}
+
+:root{
+  --ink:#0D0D0D;--navy:#0C1E3B;--blue:#1751C4;--blue-l:#EEF3FF;--blue-ll:#F5F8FF;
+  --sage:#0A5C42;--sage-l:#E6F4EF;--coral:#E84C2B;--coral-l:#FEF0ED;
+  --amber:#C47D0A;--amber-l:#FDF4E3;--violet:#7C3AED;--violet-l:#F3E8FF;
+  --mist:#6B7280;--border:#E5E7EB;--cream:#F8F8F6;--sand:#FDF7F0;
+  --r:10px;--r-lg:18px;--r-xl:26px;
+  --sh:0 2px 12px rgba(0,0,0,.07);--sh-lg:0 8px 32px rgba(0,0,0,.12);
+  --sh-xl:0 20px 60px rgba(0,0,0,.18);--trans:.2s ease;
+}
+h1,h2,h3,.sec-title,.form-title{font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:-.3px}
+.page{display:none;animation:fadeIn .3s ease}.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ SPLASH SCELTA RUOLO ══ */
+.splash{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(155deg,#071528 0%,#0C2A6B 45%,#0A4535 100%);padding:20px;overflow-y:auto}
+.splash::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(232,76,43,.18) 0%,transparent 55%);pointer-events:none}
+.splash.hidden{display:none}
+.splash-in{max-width:860px;width:100%;text-align:center;position:relative;z-index:1;animation:fadeIn .4s ease}
+.splash-logo{display:inline-flex;align-items:center;gap:9px;margin-bottom:1.6rem}
+.splash-logo .logo-mark{width:38px;height:38px}
+.splash-logo span{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:white}
+.splash-logo span b{color:#FFA86B}
+.splash h1{font-size:clamp(28px,4.5vw,48px);color:white;line-height:1.12;margin-bottom:.6rem}
+.splash h1 em{font-style:normal;background:linear-gradient(90deg,#FFA86B,#FFE066);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.splash-sub{color:rgba(255,255,255,.6);font-size:16px;font-weight:300;margin-bottom:2.25rem}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:1.5rem}
+.role-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.16);border-radius:var(--r-xl);
+  padding:2rem 1.75rem;text-align:left;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.role-card:hover{transform:translateY(-5px);background:rgba(255,255,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.role-card.fam:hover{border-color:#7DA9F0}.role-card.lav:hover{border-color:#6EE7B7}
+.role-ic{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+.role-card.fam .role-ic{background:rgba(125,169,240,.18)}
+.role-card.lav .role-ic{background:rgba(110,231,183,.16)}
+.role-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 11px;border-radius:20px;margin-bottom:.7rem}
+.role-card.fam .role-tag{background:rgba(125,169,240,.18);color:#A8C6F5}
+.role-card.lav .role-tag{background:rgba(110,231,183,.15);color:#86EFC5}
+.role-card h2{font-size:25px;color:white;margin-bottom:.45rem}
+.role-card p{font-size:13.5px;color:rgba(255,255,255,.55);line-height:1.65;font-weight:300;margin-bottom:1.2rem}
+.role-go{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;
+  padding:10px 20px;border-radius:var(--r);transition:all var(--trans)}
+.role-card.fam .role-go{background:#1751C4;color:white}
+.role-card.fam:hover .role-go{background:#2563EB}
+.role-card.lav .role-go{background:#0A5C42;color:white}
+.role-card.lav:hover .role-go{background:#0E7A58}
+.role-perks{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:1.25rem}
+.role-perks li{font-size:12.5px;color:rgba(255,255,255,.7);display:flex;gap:7px;align-items:center}
+.role-perks li::before{content:'✓';font-size:10px;font-weight:700;width:16px;height:16px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.role-card.fam .role-perks li::before{background:rgba(125,169,240,.2);color:#A8C6F5}
+.role-card.lav .role-perks li::before{background:rgba(110,231,183,.16);color:#86EFC5}
+.splash-skip{background:none;border:none;color:rgba(255,255,255,.45);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.splash-skip:hover{color:rgba(255,255,255,.8)}
+
+/* ══ NAV ══ */
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:0 5%;height:60px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer}
+.logo-mark{width:30px;height:30px;background:var(--coral);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:14px;height:14px}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--ink)}
+.logo-name b{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nb{background:none;border:none;padding:7px 11px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--mist);transition:all var(--trans)}
+.nb:hover{background:var(--blue-ll);color:var(--blue)}
+.nav-auth{display:flex;gap:8px;align-items:center}
+.btn-role{background:none;border:1.5px solid var(--border);padding:7px 13px;border-radius:var(--r);
+  font-size:12.5px;font-weight:500;color:var(--mist);display:flex;align-items:center;gap:6px;transition:all var(--trans)}
+.btn-role:hover{border-color:var(--ink);color:var(--ink)}
+.btn-role .dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.btn-role.lav .dot{background:var(--sage)}
+.btn-cta-nav{background:var(--coral);color:white;border:none;padding:9px 18px;border-radius:var(--r);
+  font-size:13.5px;font-weight:600;white-space:nowrap;transition:all var(--trans)}
+.btn-cta-nav:hover{background:#C73C1E;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;background:white;border-bottom:1px solid var(--border);padding:.75rem 5%;flex-direction:column}
+.mobile-menu a{padding:.7rem 0;font-size:15px;color:var(--ink);cursor:pointer;border-bottom:1px solid #F3F4F6}
+
+/* ══ HERO ══ */
+.hero{background:linear-gradient(155deg,#071528 0%,#0C2A6B 45%,#0A4535 100%);padding:60px 5% 0;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(232,76,43,.2) 0%,transparent 55%)}
+.hero-top{max-width:1160px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.9);
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:1.4rem;border:1px solid rgba(255,255,255,.18)}
+.hero-eyebrow i{width:6px;height:6px;background:#4ADE80;border-radius:50%;animation:pulse 2s infinite;font-style:normal}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4;transform:scale(1.4)}}
+.hero h1{font-size:clamp(30px,5vw,58px);color:white;line-height:1.1;margin-bottom:1rem}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#FFA86B,#FFE066);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:16.5px;color:rgba(255,255,255,.6);line-height:1.7;max-width:540px;margin:0 auto 2rem;font-weight:300}
+.sbar{max-width:660px;margin:0 auto 2rem;background:white;border-radius:var(--r-xl);padding:6px 6px 6px 18px;
+  display:flex;gap:8px;align-items:center;box-shadow:0 16px 48px rgba(0,0,0,.25)}
+.sbar input{flex:1;border:none;outline:none;font-size:15px;color:var(--ink);background:transparent;min-width:0}
+.sbar input::placeholder{color:#9CA3AF}
+.sbar select{border:none;border-left:1.5px solid var(--border);padding:6px 12px;font-size:14px;color:var(--ink);background:transparent;outline:none;cursor:pointer}
+.sbar-btn{background:var(--coral);color:white;border:none;padding:12px 22px;border-radius:var(--r-lg);font-size:14.5px;font-weight:700;white-space:nowrap;transition:background var(--trans)}
+.sbar-btn:hover{background:#C73C1E}
+.cat-tabs{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-bottom:none}
+.ct{padding:1.05rem .5rem;text-align:center;cursor:pointer;transition:background var(--trans);border-right:1px solid rgba(255,255,255,.1);position:relative}
+.ct:last-child{border-right:none}
+.ct:hover,.ct.on{background:rgba(255,255,255,.16)}
+.ct.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--coral)}
+.ct-ic{display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);transition:all var(--trans)}
+.ct:hover .ct-ic,.ct.on .ct-ic{background:rgba(255,255,255,.2);transform:scale(1.08)}
+.ct-ic svg{stroke:rgba(255,255,255,.75)}.ct:hover .ct-ic svg,.ct.on .ct-ic svg{stroke:white}
+.ct-lb{font-size:11px;font-weight:600;color:rgba(255,255,255,.8);display:block}
+.ct.on .ct-lb{color:white}
+.cat-panels{max-width:1160px;margin:0 auto;background:white;border-radius:0 0 var(--r-xl) var(--r-xl);box-shadow:0 20px 60px rgba(0,0,0,.2);position:relative;z-index:2}
+.cp{display:none;padding:1.75rem 2.25rem;animation:fadeIn .22s ease}
+.cp.show{display:grid;grid-template-columns:1fr 2fr;gap:2.25rem;align-items:start}
+.cp-left h2{font-size:22px;color:var(--ink);margin-bottom:.4rem}
+.cp-left p{font-size:13.5px;color:var(--mist);line-height:1.65;margin-bottom:1.1rem}
+.cp-btns{display:flex;flex-direction:column;gap:8px}
+.cp-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--ink);color:white;border:none;
+  padding:11px 20px;border-radius:var(--r);font-size:13.5px;font-weight:700;transition:all var(--trans)}
+.cp-btn:hover{background:var(--blue);transform:translateY(-1px)}
+.cp-btn.sec{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+.cp-btn.sec:hover{border-color:var(--ink)}
+.sub-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.sc{display:flex;align-items:flex-start;gap:9px;padding:11px 12px;border:1.5px solid var(--border);border-radius:var(--r-lg);cursor:pointer;transition:all var(--trans);background:white}
+.sc:hover{border-color:var(--blue);background:var(--blue-ll);transform:translateY(-2px);box-shadow:var(--sh)}
+.sc-glyph{font-size:18px;font-family:'Cormorant Garamond',serif;color:var(--blue);font-weight:700;width:28px;text-align:center;flex-shrink:0}
+.sc h4{font-size:12.5px;font-weight:600;color:var(--ink);font-family:'DM Sans',sans-serif}
+.sc p{font-size:11px;color:var(--mist);line-height:1.5}
+.trust-row{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;
+  padding:1.1rem 2rem;background:white;border-radius:0 0 var(--r-xl) var(--r-xl);border-top:1.5px solid var(--border);flex-wrap:wrap;gap:.5rem}
+.tr-item{display:flex;align-items:center;gap:7px}
+.tr-num{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--blue)}
+.tr-lbl{font-size:11.5px;color:var(--mist)}
+.tr-sep{width:1px;height:22px;background:var(--border)}
+
+/* ══ SEZIONI ══ */
+.section{padding:72px 5%}
+.sec-in{max-width:1160px;margin:0 auto}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);margin-bottom:.5rem}
+.sec-title{font-size:clamp(24px,3vw,36px);line-height:1.15;color:var(--ink);margin-bottom:.6rem}
+.sec-sub{font-size:15.5px;color:var(--mist);line-height:1.7;max-width:520px;font-weight:300}
+
+/* ══ STEPS ══ */
+.steps{display:grid;gap:10px;margin-top:2rem}
+.step{display:grid;grid-template-columns:44px 1fr;gap:13px;align-items:start;padding:1rem 1.35rem;background:white;border:1.5px solid var(--border);border-radius:var(--r-lg);transition:all var(--trans)}
+.step:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.snum{width:36px;height:36px;background:var(--ink);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700}
+.step h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.step p{font-size:12.5px;color:var(--mist);line-height:1.65}
+.stag{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 9px;border-radius:20px;margin-top:.35rem;font-weight:600}
+
+/* ══ GARANZIE ══ */
+.guarantee-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:2.25rem}
+.g-card{background:var(--sand);border:1px solid rgba(0,0,0,.06);border-radius:var(--r-lg);padding:1.4rem 1.25rem;text-align:center;transition:all var(--trans)}
+.g-card:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.g-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem}
+.g-card h5{font-size:14px;font-weight:600;margin-bottom:4px}
+.g-card p{font-size:12.5px;color:var(--mist);line-height:1.6}
+
+/* ══ PROFILI ══ */
+.cat-filter{display:flex;gap:8px;margin:2rem 0 1.5rem;flex-wrap:wrap}
+.cf-btn{padding:8px 18px;border-radius:20px;border:1.5px solid var(--border);font-size:13.5px;font-weight:500;color:var(--mist);background:white;transition:all var(--trans)}
+.cf-btn:hover{border-color:var(--ink);color:var(--ink)}
+.cf-btn.active{background:var(--ink);color:white;border-color:var(--ink)}
+.profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.tcard{background:white;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh);transition:all .25s;cursor:pointer;position:relative}
+.tcard:hover{transform:translateY(-6px);box-shadow:var(--sh-xl)}
+.tcard-photo{width:100%;height:210px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tcard-photo-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;font-family:'Cormorant Garamond',serif;font-weight:700;color:rgba(255,255,255,.9)}
+.tcard-photo-grad{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.68) 100%)}
+.tcard-cat-badge{position:absolute;top:12px;left:12px;z-index:2;padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;color:white;letter-spacing:.04em}
+.tcard-verified{position:absolute;top:12px;right:12px;z-index:2;background:rgba(10,92,66,.92);color:white;font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:4px 9px;border-radius:20px}
+.tcard-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:12px 14px 10px}
+.tcard-overlay-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:white;line-height:1.1}
+.tcard-overlay-meta{font-size:12px;color:rgba(255,255,255,.8);margin-top:2px}
+.tcard-stars{display:flex;align-items:center;gap:3px;margin-top:3px}
+.star{font-size:12px;color:rgba(255,255,255,.3)}.star.full{color:#FFD700}
+.tcard-rating{font-size:11.5px;color:rgba(255,255,255,.9);font-weight:600;margin-left:3px}
+.tcard-body{padding:12px 14px 10px}
+.tcard-desc{font-size:13px;color:var(--mist);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tcard-skills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.skill{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border);color:var(--mist);background:var(--cream)}
+.skill.highlight{background:var(--blue-l);border-color:rgba(23,81,196,.2);color:var(--blue)}
+.tcard-footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--border)}
+.tcard-price{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--ink)}
+.tcard-price span{font-size:11.5px;font-weight:400;color:var(--mist);font-family:'DM Sans',sans-serif}
+.tcard-avail{font-size:11px;color:var(--sage);font-weight:600;display:flex;align-items:center;gap:4px}
+.tcard-avail::before{content:'';width:6px;height:6px;background:var(--sage);border-radius:50%}
+
+/* ══ MODAL ══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:var(--r-xl);max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.3);animation:mup .3s ease}
+@keyframes mup{from{opacity:0;transform:scale(.94) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-photo{width:100%;height:240px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.modal-photo-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;font-family:'Cormorant Garamond',serif;font-weight:700;color:rgba(255,255,255,.9)}
+.modal-photo-grad{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.75) 100%)}
+.modal-close{position:absolute;top:12px;right:12px;z-index:2;width:32px;height:32px;background:rgba(255,255,255,.9);border:none;border-radius:50%;font-size:15px;transition:background var(--trans)}
+.modal-close:hover{background:white}
+.modal-name-wrap{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 16px 12px}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:white}
+.modal-meta{font-size:13px;color:rgba(255,255,255,.8);margin-top:2px}
+.modal-stars-row{display:flex;align-items:center;gap:4px;margin-top:4px}
+.modal-body{padding:16px 18px 20px}
+.modal-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.mbadge{padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600;border:1.5px solid var(--border);color:var(--mist)}
+.mbadge.v{background:var(--sage-l);border-color:rgba(10,92,66,.25);color:var(--sage)}
+.modal-section-title{font-size:11.5px;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.modal-desc{font-size:14px;color:#374151;line-height:1.7;margin-bottom:16px}
+.modal-skills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.modal-skill{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--blue-l);color:var(--blue);border:1px solid rgba(23,81,196,.2)}
+.modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.mstat{background:var(--cream);border-radius:var(--r-lg);padding:10px 12px;text-align:center}
+.mstat-n{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--ink)}
+.mstat-l{font-size:11px;color:var(--mist);margin-top:2px}
+.modal-actions{display:flex;gap:10px}
+.modal-btn{flex:1;padding:13px;border-radius:var(--r);font-size:14px;font-weight:700;border:none;transition:all var(--trans)}
+.modal-btn.primary{background:var(--blue);color:white}
+.modal-btn.primary:hover{background:var(--navy);transform:translateY(-1px)}
+.modal-btn.secondary{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+.modal-btn.secondary:hover{border-color:var(--ink)}
+
+/* ══ PAYROLL ══ */
+.payroll-sec{background:var(--navy);padding:72px 5%}
+.pgrid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.p-kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7DD3FC;margin-bottom:.5rem}
+.p-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,32px);font-weight:600;line-height:1.15;color:white;margin-bottom:.6rem}
+.p-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.7;font-weight:300;margin-bottom:1.35rem}
+.p-checks{display:flex;flex-direction:column;gap:8px;margin-bottom:1.35rem}
+.pck{display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(255,255,255,.82)}
+.pck::before{content:'✓';width:20px;height:20px;background:#1751C4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;flex-shrink:0}
+.btn-p{background:white;color:var(--navy);border:none;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:700}
+.btn-p:hover{background:#F3F4F6}
+.sim{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);padding:1.35rem}
+.sim-t{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:.9rem;font-weight:500}
+.sim-g{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:.9rem}
+.sim-lb{font-size:11.5px;color:rgba(255,255,255,.4);margin-bottom:.25rem}
+.sim select,.sim input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);padding:8px 10px;font-size:13px;color:white;outline:none}
+.sim select option{background:#0C1E3B}
+.sr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12.5px}
+.sr:last-child{border:none;padding-top:9px}
+.sr-l{color:rgba(255,255,255,.5)}.sr-v{color:white;font-weight:600;font-family:'Cormorant Garamond',serif;font-size:14px}
+.sr-v.tot{color:#7DD3FC;font-size:16px}
+</style>
+<style>
+/* ══ PACCHETTI (stile landing) ══ */
+.pack{border:1.5px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:white;transition:box-shadow var(--trans)}
+.pack:hover{box-shadow:var(--sh-lg)}
+.pack.feat{border:2px solid var(--blue)}
+.pack-flag{background:var(--blue);padding:.5rem 1.5rem;display:flex;align-items:center;gap:.75rem}
+.pack-flag b{background:white;color:var(--blue);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em}
+.pack-flag span{color:rgba(255,255,255,.85);font-size:13px}
+.pack-grid{display:grid;grid-template-columns:200px 1fr}
+.pack-side{padding:2rem 1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1.5px solid var(--border)}
+.pack-lbl{font-size:12px;font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em}
+.pack-amt{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--ink);line-height:1}
+.pack-when{font-size:12px;color:var(--mist);margin-top:.4rem}
+.pack-btn{margin-top:1.25rem;padding:10px;border-radius:var(--r);font-size:13px;font-weight:600;border:1.5px solid var(--blue);color:var(--blue);background:transparent;transition:all var(--trans)}
+.pack-btn:hover,.pack-btn.f{background:var(--blue);color:white}
+.pack-body{padding:1.75rem 2rem}
+.pack-body>p{font-size:14px;color:var(--mist);line-height:1.7;margin-bottom:1.25rem}
+.pack-feats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pf{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#374151}
+.pf i{width:18px;height:18px;background:var(--sage-l);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-style:normal;font-size:10px;color:var(--sage);font-weight:700}
+.pf.no{color:#9CA3AF}.pf.no i{background:#F3F4F6;color:#9CA3AF}
+.compare-wrap{margin-top:2.5rem;overflow-x:auto}
+.compare{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
+.compare th{text-align:center;padding:10px 12px;background:var(--navy);color:white;font-weight:500}
+.compare th:first-child{text-align:left;border-radius:var(--r) 0 0 0}
+.compare th:last-child{border-radius:0 var(--r) 0 0}
+.compare th.mid{background:var(--blue)}
+.compare td{padding:9px 12px;border-bottom:1px solid #F3F4F6;text-align:center}
+.compare td:first-child{text-align:left;font-weight:500}
+.compare tr:nth-child(odd) td{background:#F9FAFB}
+
+/* ══ TESTI ══ */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:2rem}
+.testi{background:white;border:1.5px solid var(--border);border-radius:var(--r-xl);padding:1.35rem}
+.t-stars{color:#D4AF37;font-size:13px;letter-spacing:3px;margin-bottom:.6rem}
+.t-text{font-size:14px;line-height:1.7;color:#374151;font-style:italic;margin-bottom:.85rem}
+.t-auth{display:flex;align-items:center;gap:9px}
+.t-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0}
+.t-name{font-size:13px;font-weight:600}.t-role{font-size:11.5px;color:var(--mist)}
+
+/* ══ FORM ══ */
+.form-wrap{background:white;border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2.25rem;box-shadow:var(--sh);max-width:720px;margin:0 auto}
+.form-title{font-size:23px;margin-bottom:.3rem}
+.form-note{font-size:13.5px;color:var(--mist);margin-bottom:1.35rem;line-height:1.65}
+.sb-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:5px 12px;border-radius:20px;font-weight:600;margin-bottom:1.1rem}
+.sbb-b{background:var(--blue-ll);color:var(--blue)}.sbb-g{background:var(--sage-l);color:var(--sage)}
+.prog-head{display:flex;justify-content:space-between;font-size:12px;color:var(--mist);margin-bottom:.4rem}
+.prog{height:3px;background:#E5E7EB;border-radius:2px;overflow:hidden;margin-bottom:1.5rem}
+.prog-f{height:100%;border-radius:2px;width:0;transition:width .4s}
+.pf-b{background:var(--blue)}.pf-g{background:var(--sage)}
+.fg{margin-bottom:1.15rem}
+.fg label{display:block;font-size:12.5px;font-weight:500;color:#374151;margin-bottom:.35rem}
+.fg input,.fg select,.fg textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--r);padding:10px 12px;font-size:14px;outline:none;transition:all var(--trans);background:white}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,81,196,.09)}
+.lav-mode .fg input:focus,.lav-mode .fg select:focus,.lav-mode .fg textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(10,92,66,.1)}
+.fg textarea{height:88px;resize:vertical}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.chip{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);font-size:12.5px;cursor:pointer;color:var(--mist);background:white;transition:all var(--trans)}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip.ob{background:var(--blue-ll);border-color:var(--blue);color:var(--blue);font-weight:600}
+.chip.og{background:var(--sage-l);border-color:var(--sage);color:var(--sage);font-weight:600}
+.chks{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.chk{display:flex;align-items:flex-start;gap:7px;font-size:13px;cursor:pointer;padding:8px 10px;border-radius:var(--r);border:1px solid #F3F4F6;background:#FAFAFA;transition:background var(--trans)}
+.chk:hover{background:#F3F4F6}.chk input{margin-top:2px;flex-shrink:0;accent-color:var(--blue)}
+.lav-mode .chk input{accent-color:var(--sage)}
+.upload-box{border:2px dashed var(--border);border-radius:var(--r-lg);padding:1.4rem;text-align:center;cursor:pointer;background:#FAFAFA;transition:all var(--trans)}
+.upload-box:hover{border-color:var(--sage);background:var(--sage-l)}
+.upload-box strong{font-size:13.5px;color:var(--ink)}
+.upload-box p{font-size:12px;color:var(--mist);margin-top:3px}
+.fname{font-size:11.5px;color:var(--sage);margin-top:5px;font-weight:500}
+.btn-sub{width:100%;padding:15px;border-radius:var(--r);font-size:15px;font-weight:700;border:none;color:white;transition:all var(--trans);margin-top:.4rem}
+.bs-b{background:var(--blue)}.bs-b:hover{background:#1040A0;transform:translateY(-1px);box-shadow:0 4px 16px rgba(23,81,196,.3)}
+.bs-g{background:var(--sage)}.bs-g:hover{background:#084D38;transform:translateY(-1px);box-shadow:0 4px 16px rgba(10,92,66,.3)}
+.form-privacy{font-size:11.5px;color:#9CA3AF;margin-top:.7rem;text-align:center;line-height:1.6}
+.form-privacy a{color:var(--mist);text-decoration:underline}
+.success{text-align:center;padding:2.5rem 1rem;display:none}
+.suc-ic{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem;font-size:24px}
+.success h3{font-size:22px;margin-bottom:.4rem}
+.success p{font-size:14px;color:var(--mist);max-width:360px;margin:0 auto;line-height:1.7}
+.btn-reset{margin-top:1.1rem;padding:10px 24px;border-radius:var(--r);border:1.5px solid var(--border);background:white;font-size:13.5px}
+
+/* ══ FAQ ══ */
+.faq-item{border-bottom:1.5px solid var(--border)}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:1.05rem 0;font-size:14.5px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq-q::after{content:'+';font-size:20px;font-weight:300;color:var(--mist);transition:transform var(--trans);flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--blue)}
+.faq-item.open .faq-q{color:var(--blue)}
+.faq-a{font-size:13.5px;color:var(--mist);line-height:1.72;max-height:0;overflow:hidden;transition:max-height .35s,padding .25s}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:1rem}
+
+/* ══ CTA BAND ══ */
+.cta-band{background:var(--ink);padding:64px 5%;text-align:center}
+.cta-band h2{font-size:clamp(22px,3.5vw,38px);color:white;margin-bottom:.6rem}
+.cta-band p{color:rgba(255,255,255,.5);font-size:15px;margin-bottom:1.6rem;font-weight:300}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-w{background:white;color:var(--ink);border:none;padding:13px 26px;border-radius:var(--r);font-size:14.5px;font-weight:700;transition:all var(--trans)}
+.btn-w:hover{background:#F3F4F6;transform:translateY(-1.5px)}
+.btn-wo{background:transparent;color:white;border:1.5px solid rgba(255,255,255,.25);padding:13px 26px;border-radius:var(--r);font-size:14.5px;font-weight:500}
+.btn-wo:hover{border-color:rgba(255,255,255,.6)}
+
+/* ══ FOOTER ══ */
+footer{background:#0A0A0A;padding:2.5rem 5% 1.75rem}
+.fi{max-width:1160px;margin:0 auto}
+.ft{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:1.75rem}
+.footer-brand p{font-size:12.5px;color:#777;line-height:1.75;margin-top:.6rem;max-width:240px}
+.footer-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:600;border:none;margin-top:1rem;transition:all var(--trans)}
+.footer-wa:hover{background:#1EBA58;transform:translateY(-1px)}
+.fc h6{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-bottom:.7rem}
+.fc a{display:block;font-size:13px;color:#888;margin-bottom:.4rem;cursor:pointer;transition:color var(--trans)}
+.fc a:hover{color:white}
+.fb{border-top:1px solid #1A1A1A;padding-top:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem}
+.fb p{font-size:11.5px;color:#555}
+
+/* ══ PAGE HERO ══ */
+.phero{padding:46px 5% 52px}
+.phero h1{font-size:clamp(26px,4vw,44px);color:white;margin-bottom:.6rem;line-height:1.1}
+.phero p{color:rgba(255,255,255,.55);font-size:15px;font-weight:300}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  nav .nav-links{display:none}
+  .hamburger{display:flex}
+  .cat-tabs{grid-template-columns:repeat(3,1fr)}
+  .pgrid,.cp.show{grid-template-columns:1fr}
+  .ft{grid-template-columns:1fr 1fr}
+  .pack-grid{grid-template-columns:1fr}
+  .pack-side{border-right:none;border-bottom:1.5px solid var(--border)}
+  .pack-feats{grid-template-columns:1fr}
+  .role-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .btn-role span.lbl{display:none}
+  .fg-2,.chks,.sim-g{grid-template-columns:1fr}
+  .sub-cats{grid-template-columns:1fr 1fr}
+  .ft{grid-template-columns:1fr}
+  .profiles-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .tcard-photo{height:180px}
+  .sbar{flex-wrap:wrap;border-radius:var(--r-lg)}
+  .sbar select{border-left:none}
+  .sbar-btn{width:100%}
+  .splash-in{padding:2rem 0}
+  .role-card{padding:1.5rem 1.35rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SPLASH: SCELTA RUOLO INIZIALE ══ -->
+<div class="splash" id="splash">
+  <div class="splash-in">
+    <div class="splash-logo">
+      <div class="logo-mark" style="width:38px;height:38px"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><path d="M3 9.5C3 7 5 5 7.5 5c1.7 0 3.1.9 3.9 2.3h1.2C13.4 5.9 14.8 5 16.5 5 19 5 21 7 21 9.5c0 5-9 10-9 10S3 14.5 3 9.5z"/></svg></div>
+      <span>Family<b>Care</b></span>
+    </div>
+    <h1>Benvenuto.<br>Dicci <em>chi sei</em> per iniziare</h1>
+    <p class="splash-sub">Due percorsi diversi, un'unica piattaforma. Scegli il tuo per vedere subito ciò che ti serve.</p>
+    <div class="role-grid">
+
+      <div class="role-card fam" onclick="chooseRole('fam')">
+        <div class="role-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A8C6F5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 001 1h12a1 1 0 001-1V9.5"/><path d="M9.5 21v-6h5v6"/></svg></div>
+        <span class="role-tag">Sono una famiglia</span>
+        <h2>Cerco una badante</h2>
+        <p>Trova un'assistente familiare verificata per il tuo caro: documenti, referenze e colloquio già controllati da noi.</p>
+        <ul class="role-perks">
+          <li>3-5 profili selezionati in 48 ore</li>
+          <li>Sfoglia subito i profili verificati</li>
+          <li>Supporto contratto INPS e buste paga</li>
+        </ul>
+        <span class="role-go">Trova la tua badante →</span>
+      </div>
+
+      <div class="role-card lav" onclick="chooseRole('lav')">
+        <div class="role-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#86EFC5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <span class="role-tag">Sono una badante</span>
+        <h2>Offro il mio servizio</h2>
+        <p>Crea il tuo profilo gratuito: le famiglie di Roma ti trovano e noi cerchiamo il lavoro giusto per te.</p>
+        <ul class="role-perks">
+          <li>Iscrizione 100% gratuita, per sempre</li>
+          <li>Profilo visibile alle famiglie verificate</li>
+          <li>Contratto regolare CCNL e tutele</li>
+        </ul>
+        <span class="role-go">Crea il tuo profilo gratis →</span>
+      </div>
+
+    </div>
+    <button class="splash-skip" onclick="skipSplash()">Preferisco esplorare il sito liberamente</button>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo" onclick="goPage('home')">
+    <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M3 9.5C3 7 5 5 7.5 5c1.7 0 3.1.9 3.9 2.3h1.2C13.4 5.9 14.8 5 16.5 5 19 5 21 7 21 9.5c0 5-9 10-9 10S3 14.5 3 9.5z"/></svg></div>
+    <span class="logo-name">Family<b>Care</b></span>
+  </div>
+  <div class="nav-links">
+    <button class="nb" onclick="goPage('home')">Home</button>
+    <button class="nb" onclick="goPage('profili')">Sfoglia profili</button>
+    <button class="nb" onclick="goPage('home');scrollToId('pacchetti')">Pacchetti</button>
+    <button class="nb" onclick="goPage('payroll')">Gestione paghe</button>
+    <button class="nb" onclick="goPage('lavoratrici')">Cerco lavoro</button>
+  </div>
+  <div class="nav-auth">
+    <button class="btn-role" id="role-switch" onclick="openSplash()" title="Cambia profilo"><span class="dot"></span><span class="lbl">Famiglia</span></button>
+    <button class="btn-cta-nav" id="nav-cta" onclick="goPage('famiglie')">Trova la tua badante</button>
+    <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="goPage('home');closeMobile()">Home</a>
+  <a onclick="goPage('profili');closeMobile()">Sfoglia profili</a>
+  <a onclick="goPage('home');scrollToId('pacchetti');closeMobile()">Pacchetti</a>
+  <a onclick="goPage('payroll');closeMobile()">Gestione paghe</a>
+  <a onclick="goPage('lavoratrici');closeMobile()">Cerco lavoro</a>
+</div>
+<!-- ══════════ HOME ══════════ -->
+<div id="page-home" class="page active">
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-eyebrow"><i></i>Roma e provincia · Profili verificati · Risposta in 24h</div>
+    <h1 id="hero-title">Trova la <em>badante giusta</em><br>per la tua famiglia</h1>
+    <p class="hero-sub" id="hero-sub">Assistenti familiari, colf, babysitter, dog sitter e supporto compiti. Ogni profilo verificato con documenti, referenze e colloquio. Buste paga incluse nella stessa piattaforma.</p>
+
+    <div class="sbar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Che tipo di assistenza cerchi? Es. badante, colf..." id="si" onkeydown="if(event.key==='Enter')doSearch()">
+      <select id="sz">
+        <option value="">Zona di Roma</option>
+        <option>Centro storico</option><option>Parioli</option><option>Prati</option>
+        <option>Trastevere</option><option>EUR</option><option>Appio</option>
+        <option>Tiburtina</option><option>Montesacro</option><option>Tutta Roma</option>
+      </select>
+      <button class="sbar-btn" onclick="doSearch()">Cerca →</button>
+    </div>
+
+    <div class="cat-tabs" id="catTabs">
+      <div class="ct on" onclick="switchTab(0)"><span class="ct-ic"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8c0-2.2 1.8-4 4-4s4 1.8 4 4-4 6-4 6-4-3.8-4-6z"/><path d="M7 16l1-4h8l1 4v10H7V16z"/><path d="M10 22v4M14 22v4"/><path d="M4 20h3M20 20h3M23 20c1.1 0 2 .9 2 2v4H20"/></svg></span><span class="ct-lb">Badante / Assistente</span></div>
+      <div class="ct" onclick="switchTab(1)"><span class="ct-ic"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="20" height="6" rx="2"/><path d="M10 20v-8a2 2 0 012-2h8a2 2 0 012 2v8"/><path d="M13 10V7M16 10V6M19 10V7"/><line x1="6" y1="23" x2="26" y2="23"/></svg></span><span class="ct-lb">Colf e pulizie</span></div>
+      <div class="ct" onclick="switchTab(2)"><span class="ct-ic"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="10" r="5"/><path d="M6 26c0-5.5 4.5-10 10-10s10 4.5 10 10"/><path d="M23 6l.9 2.7H27l-2.3 1.7.9 2.7L23 11.4l-2.6 1.7.9-2.7L19 8.7h2.9z"/></svg></span><span class="ct-lb">Babysitter</span></div>
+      <div class="ct" onclick="switchTab(3)"><span class="ct-ic"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="8" rx="2.5" ry="3.5"/><ellipse cx="20" cy="8" rx="2.5" ry="3.5"/><ellipse cx="7" cy="14" rx="2" ry="2.8"/><ellipse cx="25" cy="14" rx="2" ry="2.8"/><path d="M9 18c0 0-2 2-2 5a3 3 0 003 3h12a3 3 0 003-3c0-3-2-5-2-5l-3-2H12l-3 2z"/></svg></span><span class="ct-lb">Dog sitter</span></div>
+      <div class="ct" onclick="switchTab(4)"><span class="ct-ic"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10a2 2 0 012 2v18l-6-3-6 3V8a2 2 0 012-2z"/><path d="M28 6H18a2 2 0 00-2 2v18l6-3 6 3V8a2 2 0 00-2-2z"/><line x1="16" y1="8" x2="16" y2="26"/></svg></span><span class="ct-lb">Supporto compiti</span></div>
+    </div>
+
+    <div class="cat-panels">
+      <div class="cp show" id="p0">
+        <div class="cp-left">
+          <h2>Badante / Assistente familiare</h2>
+          <p>Convivente o a ore. Documenti verificati, referenze telefoniche e colloquio video. Specializzate in anziani, Alzheimer, Parkinson, post-operatorio.</p>
+          <div class="cp-btns">
+            <button class="cp-btn" onclick="goPage('profili');filterProfiles('assistente')">Sfoglia profili →</button>
+            <button class="cp-btn sec" onclick="goPage('famiglie')">Richiedi selezione guidata</button>
+          </div>
+        </div>
+        <div class="sub-cats">
+          <div class="sc" onclick="goPage('profili');filterProfiles('assistente')"><span class="sc-glyph">◈</span><div><h4>Convivente H24</h4><p>Vive in famiglia, sempre presente</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('assistente')"><span class="sc-glyph">◷</span><div><h4>Part-time a ore</h4><p>Mattina, pomeriggio o sera</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('assistente')"><span class="sc-glyph">☽</span><div><h4>Assistenza notturna</h4><p>Sorveglianza nelle ore notturne</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('assistente')"><span class="sc-glyph">◆</span><div><h4>Alzheimer / demenze</h4><p>Esperienza certificata</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('assistente')"><span class="sc-glyph">✦</span><div><h4>Post-operatorio</h4><p>Supporto in riabilitazione</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('assistente')"><span class="sc-glyph">◎</span><div><h4>Disabilità fisica</h4><p>Mobilità ridotta</p></div></div>
+        </div>
+      </div>
+      <div class="cp" id="p1">
+        <div class="cp-left">
+          <h2>Colf e pulizie</h2>
+          <p>Collaboratrici domestiche per pulizie, stireria, spesa e gestione casa. Verificate con referenze reali. A ore o contratto fisso.</p>
+          <div class="cp-btns">
+            <button class="cp-btn" onclick="goPage('profili');filterProfiles('colf')">Sfoglia profili →</button>
+            <button class="cp-btn sec" onclick="goPage('famiglie')">Richiedi selezione guidata</button>
+          </div>
+        </div>
+        <div class="sub-cats">
+          <div class="sc" onclick="goPage('profili');filterProfiles('colf')"><span class="sc-glyph">✦</span><div><h4>Pulizie regolari</h4><p>Settimanale o bisettimanale</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('colf')"><span class="sc-glyph">◈</span><div><h4>Stireria</h4><p>Camicie, biancheria, delicati</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('colf')"><span class="sc-glyph">◇</span><div><h4>Spesa e commissioni</h4><p>Acquisti, farmacia, pacchi</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('colf')"><span class="sc-glyph">◆</span><div><h4>Cucina e pasti</h4><p>Preparazione pasti quotidiani</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('colf')"><span class="sc-glyph">◎</span><div><h4>Pulizie di fondo</h4><p>Stagionali approfondite</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('colf')"><span class="sc-glyph">↻</span><div><h4>Colf + assistenza</h4><p>Pulizie e supporto anziani</p></div></div>
+        </div>
+      </div>
+      <div class="cp" id="p2">
+        <div class="cp-left">
+          <h2>Babysitter</h2>
+          <p>Tate e babysitter qualificate per bambini di tutte le età. Esperienze verificate, referenze telefonate. A ore, fissi o emergenze.</p>
+          <div class="cp-btns">
+            <button class="cp-btn" onclick="goPage('profili');filterProfiles('babysitter')">Sfoglia profili →</button>
+            <button class="cp-btn sec" onclick="goPage('famiglie')">Richiedi selezione guidata</button>
+          </div>
+        </div>
+        <div class="sub-cats">
+          <div class="sc" onclick="goPage('profili');filterProfiles('babysitter')"><span class="sc-glyph">✦</span><div><h4>Neonati 0-12 mesi</h4><p>Esperienza puericultura</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('babysitter')"><span class="sc-glyph">◈</span><div><h4>Bambini 1-3 anni</h4><p>Prima infanzia</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('babysitter')"><span class="sc-glyph">◆</span><div><h4>Ritiro scuola</h4><p>Accompagnamento e compiti</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('babysitter')"><span class="sc-glyph">◎</span><div><h4>Babysitter inglese</h4><p>Madrelingua</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('babysitter')"><span class="sc-glyph">☽</span><div><h4>Notturna</h4><p>Serale e notturno</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('babysitter')"><span class="sc-glyph">◇</span><div><h4>Emergenza</h4><p>Disponibilità rapida</p></div></div>
+        </div>
+      </div>
+      <div class="cp" id="p3">
+        <div class="cp-left">
+          <h2>Dog sitter</h2>
+          <p>Cura professionale di cani e gatti. Passeggiate, visite domiciliari, pensione in casa. Verificati con referenze di altri proprietari.</p>
+          <div class="cp-btns">
+            <button class="cp-btn" onclick="goPage('profili');filterProfiles('dogsitter')">Sfoglia profili →</button>
+            <button class="cp-btn sec" onclick="goPage('lavoratrici')">Sono un dog sitter</button>
+          </div>
+        </div>
+        <div class="sub-cats">
+          <div class="sc" onclick="goPage('profili');filterProfiles('dogsitter')"><span class="sc-glyph">✦</span><div><h4>Passeggiate</h4><p>Mattina, pranzo o sera</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('dogsitter')"><span class="sc-glyph">◈</span><div><h4>Visita domiciliare</h4><p>Check quotidiano</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('dogsitter')"><span class="sc-glyph">⌂</span><div><h4>Pensione in casa</h4><p>Ospite dal sitter</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('dogsitter')"><span class="sc-glyph">◎</span><div><h4>Cura gatti</h4><p>Visite e coccole</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('dogsitter')"><span class="sc-glyph">◇</span><div><h4>Toelettatura base</h4><p>Bagno e spazzolatura</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('dogsitter')"><span class="sc-glyph">◆</span><div><h4>Animali malati</h4><p>Farmaci e assistenza</p></div></div>
+        </div>
+      </div>
+      <div class="cp" id="p4">
+        <div class="cp-left">
+          <h2>Supporto compiti</h2>
+          <p>Insegnanti e tutor privati per ogni materia e livello. A domicilio o online. Preparazione esami e recupero lacune.</p>
+          <div class="cp-btns">
+            <button class="cp-btn" onclick="goPage('profili');filterProfiles('ripetizioni')">Sfoglia profili →</button>
+            <button class="cp-btn sec" onclick="goPage('lavoratrici')">Sono un insegnante</button>
+          </div>
+        </div>
+        <div class="sub-cats">
+          <div class="sc" onclick="goPage('profili');filterProfiles('ripetizioni')"><span class="sc-glyph">∑</span><div><h4>Matematica e scienze</h4><p>Elementari → università</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('ripetizioni')"><span class="sc-glyph">◈</span><div><h4>Italiano</h4><p>Temi, analisi, grammatica</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('ripetizioni')"><span class="sc-glyph">◎</span><div><h4>Lingue straniere</h4><p>Inglese, spagnolo, francese</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('ripetizioni')"><span class="sc-glyph">◆</span><div><h4>Informatica</h4><p>Office, coding, ECDL</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('ripetizioni')"><span class="sc-glyph">✦</span><div><h4>Prep. maturità</h4><p>Debiti e ammissioni</p></div></div>
+          <div class="sc" onclick="goPage('profili');filterProfiles('ripetizioni')"><span class="sc-glyph">◇</span><div><h4>Aiuto compiti</h4><p>Supporto pomeridiano</p></div></div>
+        </div>
+      </div>
+
+      <div class="trust-row">
+        <div class="tr-item"><span class="tr-num">900+</span><span class="tr-lbl">profili verificati</span></div>
+        <div class="tr-sep"></div>
+        <div class="tr-item"><span class="tr-num">48h</span><span class="tr-lbl">risposta media</span></div>
+        <div class="tr-sep"></div>
+        <div class="tr-item"><span class="tr-num">CCNL</span><span class="tr-lbl">contratti in regola</span></div>
+        <div class="tr-sep"></div>
+        <div class="tr-item"><span class="tr-num">4.9★</span><span class="tr-lbl">valutazione media</span></div>
+        <div class="tr-sep"></div>
+        <div class="tr-item"><span class="tr-num">Gratis</span><span class="tr-lbl">per chi offre servizio</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Come funziona -->
+<div class="section" style="background:white">
+  <div class="sec-in" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start" id="howit">
+    <div>
+      <div class="kicker">Come funziona</div>
+      <h2 class="sec-title">Semplice, veloce, sicuro.</h2>
+      <p class="sec-sub">Sfoglia tu i profili oppure lascia fare a noi: ti presentiamo i candidati migliori già verificati.</p>
+      <button class="btn-w" style="background:var(--ink);color:white;margin-top:1.5rem" onclick="goPage('profili')">Sfoglia profili →</button>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="snum">1</div><div><h4>Raccontaci di cosa hai bisogno</h4><p>Form online in 3 minuti oppure sfoglia liberamente i profili per categoria e zona.</p><span class="stag" style="background:var(--blue-ll);color:var(--blue)">✦ 3 minuti</span></div></div>
+      <div class="step"><div class="snum">2</div><div><h4>Selezioniamo e verifichiamo per te</h4><p>Documenti, colloquio telefonico e referenze verificate per ogni candidata.</p><span class="stag" style="background:var(--sage-l);color:var(--sage)">✦ Profili verificati</span></div></div>
+      <div class="step"><div class="snum">3</div><div><h4>Ricevi 3-5 profili in 48 ore</h4><p>Schede dettagliate per ogni candidata. Scegli chi incontrare — organizziamo noi il colloquio.</p><span class="stag" style="background:var(--amber-l);color:var(--amber)">✦ Entro 48 ore</span></div></div>
+      <div class="step"><div class="snum">4</div><div><h4>Contratto e buste paga senza pensieri</h4><p>Ti guidiamo nel contratto INPS, contributi e Cas.Sa.Colf. Cedolini automatici da €19/mese.</p><span class="stag" style="background:var(--violet-l);color:var(--violet)">✦ Tutto in regola</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Profili in evidenza -->
+<div class="section" style="background:var(--cream)">
+  <div class="sec-in">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+      <div>
+        <div class="kicker">Profili in evidenza</div>
+        <h2 class="sec-title" style="margin-bottom:0">I nostri professionisti verificati</h2>
+      </div>
+      <button class="btn-role" onclick="goPage('profili')" style="white-space:nowrap">Vedi tutti →</button>
+    </div>
+    <div class="profiles-grid" id="home-profiles"></div>
+  </div>
+</div>
+
+<!-- Garanzie -->
+<div class="section" style="background:white">
+  <div class="sec-in">
+    <div class="kicker">Le nostre garanzie</div>
+    <h2 class="sec-title">Perché sceglierci</h2>
+    <div class="guarantee-grid">
+      <div class="g-card"><div class="g-icon" style="background:var(--blue-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1751C4" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><h5>Documenti verificati</h5><p>Permesso di soggiorno, carta d'identità e codice fiscale controllati per ogni candidata.</p></div>
+      <div class="g-card"><div class="g-icon" style="background:var(--blue-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1751C4" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><h5>Referenze telefoniche</h5><p>Contattiamo le famiglie precedenti per confermare le esperienze dichiarate.</p></div>
+      <div class="g-card"><div class="g-icon" style="background:var(--sage-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A5C42" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h5>Garanzia sostituzione</h5><p>Sostituzione gratuita entro 30 giorni dall'inserimento se non sei soddisfatta.</p></div>
+      <div class="g-card"><div class="g-icon" style="background:var(--amber-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h5>Supporto contratto INPS</h5><p>Ti guidiamo nella formalizzazione del rapporto. Niente sorprese burocratiche.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Payroll + simulatore -->
+<div class="payroll-sec">
+  <div class="pgrid">
+    <div>
+      <div class="p-kicker">Gestione paghe</div>
+      <div class="p-title">Buste paga automatiche per i tuoi collaboratori.</div>
+      <div class="p-sub">Un abbonamento da €19/mese copre colf, badante e babysitter. CCNL aggiornato automaticamente.</div>
+      <div class="p-checks">
+        <div class="pck">Cedolino mensile automatico</div>
+        <div class="pck">PagoPA INPS trimestrale</div>
+        <div class="pck">TFR, tredicesima e ferie</div>
+        <div class="pck">CU annuale per il lavoratore</div>
+      </div>
+      <button class="btn-p" onclick="goPage('payroll')">Gestisci le paghe →</button>
+    </div>
+    <div class="sim">
+      <div class="sim-t">Simulatore costi CCNL — gratuito</div>
+      <div class="sim-g">
+        <div><div class="sim-lb">Tipo rapporto</div><select id="st" onchange="calcSim()"><option value="nc">Non convivente</option><option value="c">Convivente</option></select></div>
+        <div><div class="sim-lb">Livello CCNL</div><select id="sl" onchange="calcSim()"><option value="B">B — Colf</option><option value="C" selected>C — Assistente</option><option value="CS">CS — Non autosuff.</option></select></div>
+      </div>
+      <div class="sim-g">
+        <div><div class="sim-lb">Ore / settimana</div><input type="number" id="so" value="25" min="1" max="54" oninput="calcSim()"></div>
+        <div><div class="sim-lb">Paga oraria netta (€)</div><input type="number" id="sp" value="10" min="6" max="25" step="0.5" oninput="calcSim()"></div>
+      </div>
+      <div class="sr"><span class="sr-l">Retribuzione netta mensile</span><span class="sr-v" id="rn">—</span></div>
+      <div class="sr"><span class="sr-l">Contributi INPS (datore)</span><span class="sr-v" id="ri">—</span></div>
+      <div class="sr"><span class="sr-l">Rateo tredicesima</span><span class="sr-v" id="r3">—</span></div>
+      <div class="sr"><span class="sr-l">Rateo TFR</span><span class="sr-v" id="rt">—</span></div>
+      <div class="sr"><span class="sr-l">COSTO TOTALE / mese</span><span class="sr-v tot" id="rv">—</span></div>
+    </div>
+  </div>
+</div>
+<!-- Pacchetti -->
+<div class="section" style="background:white" id="pacchetti">
+  <div class="sec-in">
+    <div class="kicker">I nostri pacchetti</div>
+    <h2 class="sec-title">Trasparente. Zero sorprese.</h2>
+    <p class="sec-sub">Pagamento unico, nessuna commissione ricorrente. Per chi offre il proprio servizio l'iscrizione è sempre <strong>gratuita</strong>.</p>
+
+    <div style="display:grid;gap:22px;margin-top:2.5rem">
+      <!-- BASIC -->
+      <div class="pack">
+        <div class="pack-grid">
+          <div class="pack-side" style="background:var(--blue-ll)">
+            <div class="pack-lbl" style="color:var(--blue)">Basic</div>
+            <div class="pack-amt">€ 199</div>
+            <div class="pack-when">pagamento unico</div>
+            <button class="pack-btn" onclick="goPage('famiglie')">Scegli Basic</button>
+          </div>
+          <div class="pack-body">
+            <p>Per chi ha già esperienza con l'assunzione e vuole solo le candidate giuste: gestisci tu colloqui e burocrazia.</p>
+            <div class="pack-feats">
+              <div class="pf"><i>✓</i>3 profili verificati selezionati per te</div>
+              <div class="pf"><i>✓</i>Schede dettagliate per ogni candidata</div>
+              <div class="pf"><i>✓</i>Verifica documenti di identità</div>
+              <div class="pf"><i>✓</i>Contatti diretti delle candidate</div>
+              <div class="pf no"><i>✕</i>Colloqui organizzati da noi</div>
+              <div class="pf no"><i>✕</i>Supporto contratto INPS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- STANDARD -->
+      <div class="pack feat">
+        <div class="pack-flag"><b>PIÙ SCELTO</b><span>Adatto alla maggior parte delle famiglie</span></div>
+        <div class="pack-grid">
+          <div class="pack-side" style="background:var(--blue-l)">
+            <div class="pack-lbl" style="color:var(--blue)">Standard</div>
+            <div class="pack-amt">€ 350</div>
+            <div class="pack-when">pagamento unico</div>
+            <button class="pack-btn f" onclick="goPage('famiglie')">Scegli Standard</button>
+          </div>
+          <div class="pack-body">
+            <p>Il pacchetto completo: gestiamo selezione, colloqui e referenze. Tu scegli tra candidate già validate.</p>
+            <div class="pack-feats">
+              <div class="pf"><i>✓</i>5 profili selezionati e verificati</div>
+              <div class="pf"><i>✓</i>Verifica documenti e permesso di soggiorno</div>
+              <div class="pf"><i>✓</i>2 referenze telefoniche per candidata</div>
+              <div class="pf"><i>✓</i>Colloqui organizzati da noi</div>
+              <div class="pf"><i>✓</i>Consulenza nella scelta finale</div>
+              <div class="pf no"><i>✕</i>Supporto contratto INPS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- PREMIUM -->
+      <div class="pack">
+        <div class="pack-grid">
+          <div class="pack-side" style="background:var(--sand)">
+            <div class="pack-lbl" style="color:var(--coral)">Premium</div>
+            <div class="pack-amt">€ 580</div>
+            <div class="pack-when">pagamento unico</div>
+            <button class="pack-btn" style="border-color:var(--coral);color:var(--coral)" onclick="goPage('famiglie')">Scegli Premium</button>
+          </div>
+          <div class="pack-body">
+            <p>La soluzione per chi non vuole occuparsi di nulla: tutto lo Standard più la fase contrattuale e il follow-up.</p>
+            <div class="pack-feats">
+              <div class="pf"><i>✓</i>Tutto del pacchetto Standard</div>
+              <div class="pf"><i>✓</i>Supporto compilazione contratto INPS</div>
+              <div class="pf"><i>✓</i>Calcolo contributi INPS e CCNL</div>
+              <div class="pf"><i>✓</i>Iscrizione Cas.Sa.Colf assistita</div>
+              <div class="pf"><i>✓</i>Follow-up 30 giorni post-inserimento</div>
+              <div class="pf"><i>✓</i>Sostituzione gratuita entro 30 giorni</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- PAGHE mensile -->
+      <div class="pack" style="background:var(--navy);border-color:var(--navy)">
+        <div class="pack-grid">
+          <div class="pack-side" style="border-color:rgba(255,255,255,.12)">
+            <div class="pack-lbl" style="color:#7DD3FC">Gestione paghe</div>
+            <div class="pack-amt" style="color:white">€ 19</div>
+            <div class="pack-when" style="color:rgba(255,255,255,.45)">/mese · disdici quando vuoi</div>
+            <button class="pack-btn" style="border-color:#1751C4;background:#1751C4;color:white" onclick="goPage('payroll')">Attiva paghe</button>
+          </div>
+          <div class="pack-body">
+            <p style="color:rgba(255,255,255,.55)">Abbinabile a qualsiasi pacchetto: cedolini, INPS e adempimenti gestiti in automatico.</p>
+            <div class="pack-feats">
+              <div class="pf" style="color:rgba(255,255,255,.8)"><i>✓</i>Buste paga automatiche</div>
+              <div class="pf" style="color:rgba(255,255,255,.8)"><i>✓</i>PagoPA INPS trimestrale</div>
+              <div class="pf" style="color:rgba(255,255,255,.8)"><i>✓</i>TFR e tredicesima</div>
+              <div class="pf" style="color:rgba(255,255,255,.8)"><i>✓</i>CU annuale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-wrap">
+      <div class="kicker" style="margin-bottom:1rem">Confronto rapido</div>
+      <table class="compare">
+        <thead><tr>
+          <th>Servizio incluso</th>
+          <th>Basic<br><span style="font-size:11px;opacity:.8">€ 199</span></th>
+          <th class="mid">Standard<br><span style="font-size:11px;opacity:.8">€ 350</span></th>
+          <th>Premium<br><span style="font-size:11px;opacity:.8">€ 580</span></th>
+        </tr></thead>
+        <tbody id="compare-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonianze -->
+<div class="section" style="background:var(--cream)">
+  <div class="sec-in">
+    <div class="kicker">Cosa dicono di noi</div>
+    <h2 class="sec-title">Le famiglie ci raccontano</h2>
+    <div class="testi-grid">
+      <div class="testi"><div class="t-stars">★★★★★</div><p class="t-text">"In meno di 48 ore avevo 3 profili. Mia madre si è trovata subito bene con Maria — è come se fosse sempre stata di famiglia."</p><div class="t-auth"><div class="t-av" style="background:#1751C4">LF</div><div><div class="t-name">Laura Ferretti</div><div class="t-role">Figlia caregiver · Parioli</div></div></div></div>
+      <div class="testi"><div class="t-stars">★★★★★</div><p class="t-text">"Avevo paura del lato burocratico. Mi hanno seguito in tutto — contratto, contributi, buste paga. Ho dormito tranquillo."</p><div class="t-auth"><div class="t-av" style="background:#0A5C42">MC</div><div><div class="t-name">Marco Caruso</div><div class="t-role">Figlio · EUR</div></div></div></div>
+      <div class="testi"><div class="t-stars">★★★★★</div><p class="t-text">"Cercavo qualcuno con esperienza nell'Alzheimer. Trovata in due giorni sfogliando i profili, con referenze verificate."</p><div class="t-auth"><div class="t-av" style="background:#C47D0A">AR</div><div><div class="t-name">Anna Romano</div><div class="t-role">Moglie · Trastevere</div></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section" style="background:white">
+  <div class="sec-in" style="max-width:720px">
+    <div class="kicker">FAQ</div>
+    <h2 class="sec-title">Domande frequenti</h2>
+    <div id="faq-home" style="margin-top:1.75rem"></div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2 id="cta-title">Inizia in 2 minuti.</h2>
+  <p>Sfoglia i profili o lascia che selezioniamo noi. Risposta garantita in 24 ore.</p>
+  <div class="cta-btns">
+    <button class="btn-w" onclick="goPage('famiglie')">Cerco una badante</button>
+    <button class="btn-wo" onclick="goPage('lavoratrici')">Offro il mio servizio — è gratis</button>
+  </div>
+</div>
+
+</div><!-- /home -->
+
+<!-- ══════════ PROFILI ══════════ -->
+<div id="page-profili" class="page">
+  <div class="phero" style="background:var(--ink)">
+    <div class="sec-in">
+      <div class="kicker" style="color:#7DD3FC">Sfoglia i profili</div>
+      <h1>Trova la persona giusta.<br>Scorri, scegli, contatta.</h1>
+      <p>Ogni profilo verificato — documenti, referenze, colloquio video.</p>
+    </div>
+  </div>
+  <div class="section" style="background:var(--cream)">
+    <div class="sec-in">
+      <div class="cat-filter">
+        <button class="cf-btn active" onclick="filterProfiles('tutti',this)">Tutti</button>
+        <button class="cf-btn" onclick="filterProfiles('assistente',this)">Badante / Assistente</button>
+        <button class="cf-btn" onclick="filterProfiles('colf',this)">Colf</button>
+        <button class="cf-btn" onclick="filterProfiles('babysitter',this)">Babysitter</button>
+        <button class="cf-btn" onclick="filterProfiles('dogsitter',this)">Dog sitter</button>
+        <button class="cf-btn" onclick="filterProfiles('ripetizioni',this)">Supporto compiti</button>
+      </div>
+      <div class="profiles-grid" id="profili-grid"></div>
+    </div>
+  </div>
+</div>
+<!-- ══════════ FAMIGLIE ══════════ -->
+<div id="page-famiglie" class="page">
+  <div class="phero" style="background:linear-gradient(150deg,#0C1E3B,#1751C4)">
+    <div class="sec-in">
+      <div class="kicker" style="color:#A8C6F5">Per le famiglie</div>
+      <h1>Trova la tua badante a Roma</h1>
+      <p>Compila il form — ti ricontattiamo entro 24 ore con i profili più adatti. Nessun impegno.</p>
+    </div>
+  </div>
+  <div class="section" style="background:var(--cream)">
+    <div class="sec-in">
+      <div class="form-wrap">
+        <div class="form-title" style="color:var(--blue)">Descrivi la tua situazione</div>
+        <p class="form-note">Più sei preciso, più accurata sarà la selezione. Il servizio parte da <strong>€199</strong> — paghi solo quando scegli.</p>
+        <span class="sb-badge sbb-b">✓ Risposta garantita entro 24 ore</span>
+        <div class="prog-head"><span>Completamento richiesta</span><span id="pct-fam">0%</span></div>
+        <div class="prog"><div class="prog-f pf-b" id="bar-fam"></div></div>
+        <div id="fam-form">
+          <div class="fg-2">
+            <div class="fg"><label>Il tuo nome *</label><input id="f-nome" type="text" placeholder="Nome e cognome" oninput="calcPct('fam')"></div>
+            <div class="fg"><label>Telefono / WhatsApp *</label><input id="f-tel" type="tel" placeholder="+39 320 000 0000" oninput="calcPct('fam')"></div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Email</label><input type="email" placeholder="nome@email.it"></div>
+            <div class="fg"><label>Zona di Roma *</label>
+              <select id="f-zona" onchange="calcPct('fam')">
+                <option value="">Seleziona zona...</option>
+                <option>Centro storico / I Municipio</option><option>Parioli / Trieste</option><option>Prati / Trionfale</option>
+                <option>Trastevere / Testaccio</option><option>EUR / Ostiense</option><option>Appio / Tuscolano</option>
+                <option>Tiburtina / Nomentana</option><option>Centocelle / Prenestina</option><option>Montesacro / Talenti</option><option>Altra zona / provincia</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label>Tipo di assistenza *</label>
+            <div class="chips" id="chips-fam">
+              <div class="chip" onclick="tChip(this,'fam')">Badante convivente H24</div>
+              <div class="chip" onclick="tChip(this,'fam')">Badante a ore (diurna)</div>
+              <div class="chip" onclick="tChip(this,'fam')">Assistenza notturna</div>
+              <div class="chip" onclick="tChip(this,'fam')">Colf / pulizie</div>
+              <div class="chip" onclick="tChip(this,'fam')">Babysitter</div>
+              <div class="chip" onclick="tChip(this,'fam')">Dog sitter</div>
+              <div class="chip" onclick="tChip(this,'fam')">Supporto compiti</div>
+              <div class="chip" onclick="tChip(this,'fam')">Sostituzione temporanea</div>
+            </div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Ore settimanali</label>
+              <select><option value="">Seleziona...</option><option>Meno di 20 ore</option><option>20-30 ore</option><option>30-40 ore</option><option>Full time (40-54 ore)</option><option>Convivente H24</option><option>Non so ancora</option></select>
+            </div>
+            <div class="fg"><label>Urgenza</label>
+              <select><option value="">Seleziona...</option><option>Urgente (entro 3 giorni)</option><option>Entro 2 settimane</option><option>Entro un mese</option><option>Sto solo valutando</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Condizioni della persona da assistere</label>
+            <div class="chks">
+              <label class="chk"><input type="checkbox"> Anziano autosufficiente</label>
+              <label class="chk"><input type="checkbox"> Parzialmente autosufficiente</label>
+              <label class="chk"><input type="checkbox"> Non autosufficiente</label>
+              <label class="chk"><input type="checkbox"> Alzheimer / demenza</label>
+              <label class="chk"><input type="checkbox"> Parkinson</label>
+              <label class="chk"><input type="checkbox"> Post-operatorio</label>
+              <label class="chk"><input type="checkbox"> Disabilità fisica</label>
+              <label class="chk"><input type="checkbox"> Assistenza notturna specifica</label>
+            </div>
+          </div>
+          <div class="fg"><label>Requisiti preferiti per la candidata</label>
+            <div class="chks">
+              <label class="chk"><input type="checkbox"> Italiano fluente</label>
+              <label class="chk"><input type="checkbox"> Patente di guida</label>
+              <label class="chk"><input type="checkbox"> Esperienza con allettati</label>
+              <label class="chk"><input type="checkbox"> Esperienza con demenze</label>
+              <label class="chk"><input type="checkbox"> Sa cucinare</label>
+              <label class="chk"><input type="checkbox"> Non fumatrice</label>
+              <label class="chk"><input type="checkbox"> Ha già lavorato a Roma</label>
+              <label class="chk"><input type="checkbox"> Disponibile convivenza</label>
+            </div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Budget mensile indicativo</label>
+              <select><option value="">Seleziona...</option><option>Fino a € 800/mese</option><option>€ 800 – 1.200/mese</option><option>€ 1.200 – 1.600/mese</option><option>Oltre € 1.600/mese</option><option>Non so ancora</option></select>
+            </div>
+            <div class="fg"><label>Pacchetto</label>
+              <select><option>Standard — € 350</option><option>Basic — € 199</option><option>Premium — € 580</option><option>Da decidere</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Come vuoi essere contattato?</label>
+            <div class="chips">
+              <div class="chip" onclick="tChip(this,'fam')">WhatsApp</div>
+              <div class="chip" onclick="tChip(this,'fam')">Telefonata</div>
+              <div class="chip" onclick="tChip(this,'fam')">Email</div>
+            </div>
+          </div>
+          <div class="fg"><label>Altre informazioni utili</label>
+            <textarea placeholder="Es.: mia madre ha 84 anni, vive sola a Parioli, non cammina bene ma è lucida. Cerchiamo qualcuno di mattina dal lunedì al venerdì..."></textarea>
+          </div>
+          <button class="btn-sub bs-b" onclick="submitForm('fam')">Invia richiesta — rispondiamo entro 24 ore</button>
+          <p class="form-privacy">I tuoi dati sono trattati in conformità al GDPR · <a href="#">Privacy Policy</a> · Nessun dato condiviso senza consenso</p>
+        </div>
+        <div class="success" id="fam-success">
+          <div class="suc-ic" style="background:var(--blue-ll)">✓</div>
+          <h3>Richiesta inviata!</h3>
+          <p>Ti contatteremo entro 24 ore con i profili più adatti alla tua situazione.</p>
+          <button class="btn-reset" onclick="resetForm('fam')">Invia un'altra richiesta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ LAVORATRICI / OFFRO SERVIZIO ══════════ -->
+<div id="page-lavoratrici" class="page lav-mode">
+  <div class="phero" style="background:linear-gradient(150deg,#06392A,#0A5C42)">
+    <div class="sec-in">
+      <div class="kicker" style="color:#A7F3D0">Offro il mio servizio</div>
+      <h1>Iscriviti — cerchiamo lavoro per te</h1>
+      <p>Iscrizione <strong style="color:white">100% gratuita</strong>. Il tuo profilo sarà visibile solo alle famiglie selezionate — non pubblichiamo i tuoi dati online.</p>
+    </div>
+  </div>
+  <div class="section" style="background:#F4FAF7">
+    <div class="sec-in">
+      <div class="form-wrap">
+        <div class="form-title" style="color:var(--sage)">Crea il tuo profilo</div>
+        <p class="form-note">Il servizio è <strong>completamente gratuito</strong> per chi offre il proprio servizio. Ti contattiamo quando troviamo una famiglia adatta a te.</p>
+        <span class="sb-badge sbb-g">✓ Gratuito per sempre · Profilo online in 48h</span>
+        <div class="prog-head"><span>Completamento profilo</span><span id="pct-lav">0%</span></div>
+        <div class="prog"><div class="prog-f pf-g" id="bar-lav"></div></div>
+        <div id="lav-form">
+          <div class="fg-2">
+            <div class="fg"><label>Nome e cognome *</label><input id="l-nome" type="text" placeholder="Nome e cognome" oninput="calcPct('lav')"></div>
+            <div class="fg"><label>Data di nascita</label><input type="date"></div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Telefono / WhatsApp *</label><input id="l-tel" type="tel" placeholder="+39 320 000 0000" oninput="calcPct('lav')"></div>
+            <div class="fg"><label>Email</label><input type="email" placeholder="nome@email.it"></div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Nazionalità *</label>
+              <select id="l-naz" onchange="calcPct('lav')">
+                <option value="">Seleziona...</option><option>Italiana</option><option>Romena</option><option>Ucraina</option><option>Moldava</option><option>Filippina</option><option>Peruviana</option><option>Ecuadoriana</option><option>Altra</option>
+              </select>
+            </div>
+            <div class="fg"><label>Zona di Roma dove abiti</label>
+              <select><option value="">Zona...</option><option>Centro / Prati</option><option>Parioli / Trieste</option><option>EUR / Ostiense</option><option>Tuscolano / Appio</option><option>Tiburtina</option><option>Centocelle / Prenestina</option><option>Montesacro / Talenti</option><option>Mi sposto ovunque</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Documenti disponibili</label>
+            <div class="chks">
+              <label class="chk"><input type="checkbox"> Carta d'identità italiana / UE</label>
+              <label class="chk"><input type="checkbox"> Permesso di soggiorno valido</label>
+              <label class="chk"><input type="checkbox"> Codice fiscale</label>
+              <label class="chk"><input type="checkbox"> Patente di guida</label>
+            </div>
+          </div>
+          <div class="fg"><label>Servizio offerto *</label>
+            <div class="chips" id="chips-lav">
+              <div class="chip" onclick="tChip(this,'lav')">Badante convivente H24</div>
+              <div class="chip" onclick="tChip(this,'lav')">Badante a ore (diurna)</div>
+              <div class="chip" onclick="tChip(this,'lav')">Assistenza notturna</div>
+              <div class="chip" onclick="tChip(this,'lav')">Colf / pulizie</div>
+              <div class="chip" onclick="tChip(this,'lav')">Babysitter</div>
+              <div class="chip" onclick="tChip(this,'lav')">Dog sitter</div>
+              <div class="chip" onclick="tChip(this,'lav')">Supporto compiti</div>
+              <div class="chip" onclick="tChip(this,'lav')">Disponibile a tutto</div>
+            </div>
+          </div>
+          <div class="fg-2">
+            <div class="fg"><label>Anni di esperienza</label>
+              <select><option>Prima esperienza</option><option>1-2 anni</option><option>3-5 anni</option><option>6-10 anni</option><option>Più di 10 anni</option></select>
+            </div>
+            <div class="fg"><label>Italiano parlato</label>
+              <select><option>Base</option><option>Buono</option><option>Ottimo / madrelingua</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Competenze specifiche</label>
+            <div class="chks">
+              <label class="chk"><input type="checkbox"> Anziani allettati</label>
+              <label class="chk"><input type="checkbox"> Alzheimer / demenze</label>
+              <label class="chk"><input type="checkbox"> Parkinson</label>
+              <label class="chk"><input type="checkbox"> Post-operatorio</label>
+              <label class="chk"><input type="checkbox"> Disabilità fisica</label>
+              <label class="chk"><input type="checkbox"> Igiene avanzata / medicazioni</label>
+              <label class="chk"><input type="checkbox"> Cucina italiana</label>
+              <label class="chk"><input type="checkbox"> Guida e accompagnamento</label>
+            </div>
+          </div>
+          <div class="fg"><label>Disponibilità oraria</label>
+            <div class="chips">
+              <div class="chip" onclick="tChip(this,'lav')">Mattina</div>
+              <div class="chip" onclick="tChip(this,'lav')">Pomeriggio</div>
+              <div class="chip" onclick="tChip(this,'lav')">Sera / notte</div>
+              <div class="chip" onclick="tChip(this,'lav')">Lun-Ven</div>
+              <div class="chip" onclick="tChip(this,'lav')">Weekend</div>
+              <div class="chip" onclick="tChip(this,'lav')">Flessibile</div>
+            </div>
+          </div>
+          <div class="fg"><label>Retribuzione netta desiderata</label>
+            <select><option>Secondo CCNL (minimo contrattuale)</option><option>€ 700 – 900/mese (part-time)</option><option>€ 900 – 1.200/mese</option><option>€ 1.200 – 1.500/mese</option><option>Da valutare</option></select>
+          </div>
+          <div class="fg"><label>Foto profilo <span style="color:var(--coral);font-size:11px">consigliata · sarà la prima cosa che le famiglie vedono</span></label>
+            <div class="upload-box" onclick="document.getElementById('up-foto').click()">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0A5C42" stroke-width="1.5" stroke-linecap="round" style="margin:0 auto .4rem"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <strong>Carica la tua foto</strong><p>JPG/PNG · max 5MB · sfondo neutro · sorridi!</p>
+              <div class="fname" id="fn-foto"></div>
+            </div>
+            <input type="file" id="up-foto" accept="image/*" style="display:none" onchange="showFN(this,'fn-foto')">
+          </div>
+          <div class="fg"><label>CV <span style="font-size:11px;color:var(--mist)">facoltativo ma consigliato</span></label>
+            <div class="upload-box" onclick="document.getElementById('up-cv').click()">
+              <strong>Carica il CV</strong><p>PDF o Word · anche una semplice lista di esperienze va bene</p>
+              <div class="fname" id="fn-cv"></div>
+            </div>
+            <input type="file" id="up-cv" accept=".pdf,.doc,.docx" style="display:none" onchange="showFN(this,'fn-cv')">
+          </div>
+          <div class="fg"><label>Referenze (facoltativo)</label>
+            <textarea placeholder="Nome e telefono di 1-2 famiglie per cui hai lavorato. Le contatteremo solo con il tuo consenso."></textarea>
+          </div>
+          <div class="fg"><label>Presentati alle famiglie <span style="font-size:11px;color:var(--mist)">sarà il testo della tua card</span></label>
+            <textarea style="height:105px" placeholder="Es.: Mi chiamo Ana, ho 48 anni e lavoro come badante da 12 anni. Parlo bene italiano, ho esperienza con Alzheimer. Sono paziente, affidabile e mi piace cucinare..."></textarea>
+          </div>
+          <label class="chk" style="margin-bottom:1.1rem">
+            <input type="checkbox" id="l-gdpr">
+            <span>Acconsento al trattamento dei dati ai sensi del GDPR per la ricerca di lavoro · <a href="#" style="color:var(--sage);text-decoration:underline">Privacy Policy</a></span>
+          </label>
+          <button class="btn-sub bs-g" onclick="submitForm('lav')">Crea il mio profilo — è gratis</button>
+          <p class="form-privacy">Profilo visibile solo alle famiglie selezionate · Non pubblichiamo i tuoi dati su altri siti</p>
+        </div>
+        <div class="success" id="lav-success">
+          <div class="suc-ic" style="background:var(--sage-l)">✓</div>
+          <h3 style="color:var(--sage)">Profilo creato!</h3>
+          <p>Entro 48 ore il tuo profilo sarà visibile alle famiglie della tua zona. Ti contatteremo appena troviamo un lavoro adatto a te.</p>
+          <button class="btn-reset" onclick="resetForm('lav')">Invia un altro profilo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAYROLL ══════════ -->
+<div id="page-payroll" class="page">
+  <div class="phero" style="background:var(--navy)">
+    <div class="sec-in">
+      <div class="kicker" style="color:#7DD3FC">Gestione paghe</div>
+      <h1>Buste paga online. CCNL aggiornato.</h1>
+      <p>Da €19/mese · Automatico · INPS · PagoPA · TFR</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sec-in">
+      <div class="kicker">Cosa include</div>
+      <h2 class="sec-title">Tutto in regola, senza pensieri</h2>
+      <div class="guarantee-grid">
+        <div class="g-card"><div class="g-icon" style="background:var(--blue-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1751C4" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h5>Cedolino mensile</h5><p>Busta paga generata automaticamente ogni mese, sempre conforme al CCNL.</p></div>
+        <div class="g-card"><div class="g-icon" style="background:var(--sage-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0A5C42" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h5>PagoPA INPS</h5><p>Contributi trimestrali calcolati e bollettini pronti da pagare.</p></div>
+        <div class="g-card"><div class="g-icon" style="background:var(--amber-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C47D0A" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h5>TFR e tredicesima</h5><p>Ratei accantonati e calcolati in automatico, senza errori.</p></div>
+        <div class="g-card"><div class="g-icon" style="background:var(--violet-l)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h5>CU annuale</h5><p>Certificazione unica per il lavoratore generata a fine anno.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem">
+        <button class="btn-sub bs-b" style="max-width:340px" onclick="goPage('famiglie')">Attiva da €19/mese</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ══ MODAL PROFILO ══ -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-photo">
+      <div class="modal-photo-bg" id="modal-photo-bg"></div>
+      <div class="modal-photo-grad"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-name-wrap">
+        <div class="modal-name" id="modal-name"></div>
+        <div class="modal-meta" id="modal-meta"></div>
+        <div class="modal-stars-row" id="modal-stars"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-badges" id="modal-badges"></div>
+      <div class="modal-section-title">Presentazione</div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-section-title">Specializzazioni</div>
+      <div class="modal-skills" id="modal-skills"></div>
+      <div class="modal-stats" id="modal-stats"></div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="closeModal();goPage('famiglie')">Contatta</button>
+        <button class="modal-btn secondary" onclick="closeModal()">← Torna ai profili</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fi">
+    <div class="ft">
+      <div class="footer-brand">
+        <div class="logo" onclick="goPage('home')">
+          <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M3 9.5C3 7 5 5 7.5 5c1.7 0 3.1.9 3.9 2.3h1.2C13.4 5.9 14.8 5 16.5 5 19 5 21 7 21 9.5c0 5-9 10-9 10S3 14.5 3 9.5z"/></svg></div>
+          <span class="logo-name" style="color:white">Family<b style="color:#7DA9F0">Care</b></span>
+        </div>
+        <p>Selezione verificata di badanti e servizi domestici a Roma. Profili verificati, contratti in regola, buste paga integrate.</p>
+        <button class="footer-wa">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp: +39 320 000 0000
+        </button>
+      </div>
+      <div class="fc">
+        <h6>Servizi</h6>
+        <a onclick="goPage('home');switchTab(0)">Badante / Assistente</a>
+        <a onclick="goPage('home');switchTab(1)">Colf e pulizie</a>
+        <a onclick="goPage('home');switchTab(2)">Babysitter</a>
+        <a onclick="goPage('home');switchTab(3)">Dog sitter</a>
+        <a onclick="goPage('home');switchTab(4)">Supporto compiti</a>
+      </div>
+      <div class="fc">
+        <h6>Piattaforma</h6>
+        <a onclick="goPage('profili')">Sfoglia profili</a>
+        <a onclick="goPage('famiglie')">Cerco una badante</a>
+        <a onclick="goPage('lavoratrici')">Offro il mio servizio</a>
+        <a onclick="goPage('payroll')">Gestione paghe</a>
+        <a onclick="openSplash()">Cambia profilo</a>
+      </div>
+      <div class="fc">
+        <h6>Legale</h6>
+        <a>Privacy Policy</a><a>Cookie Policy</a><a>Termini</a>
+        <a style="color:#444;font-size:11px;margin-top:.35rem">P.IVA 00000000000</a>
+      </div>
+    </div>
+    <div class="fb">
+      <p>© 2026 Family Care · Roma, Lazio · Tutti i diritti riservati</p>
+      <p>Servizio di selezione e consulenza — non un'Agenzia per il Lavoro</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══ SCELTA RUOLO ══
+var ROLE = null;
+function chooseRole(r){
+  ROLE = r;
+  try{sessionStorage.setItem('fcRole',r)}catch(e){}
+  document.getElementById('splash').classList.add('hidden');
+  document.body.style.overflow='';
+  applyRole(r);
+  if(r==='lav') goPage('lavoratrici');
+  else goPage('home');
+}
+function skipSplash(){
+  try{sessionStorage.setItem('fcRole','skip')}catch(e){}
+  document.getElementById('splash').classList.add('hidden');
+  document.body.style.overflow='';
+}
+function openSplash(){
+  document.getElementById('splash').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function applyRole(r){
+  var sw=document.getElementById('role-switch');
+  var cta=document.getElementById('nav-cta');
+  var ht=document.getElementById('hero-title');
+  var hs=document.getElementById('hero-sub');
+  var ct=document.getElementById('cta-title');
+  if(r==='lav'){
+    sw.classList.add('lav');
+    sw.querySelector('.lbl').textContent='Offro servizio';
+    cta.textContent='Crea il tuo profilo gratis';
+    cta.onclick=function(){goPage('lavoratrici')};
+    if(ht) ht.innerHTML='Le famiglie di Roma<br>stanno <em>cercando te</em>';
+    if(hs) hs.textContent='Crea il tuo profilo gratuito: documenti verificati, contratto regolare CCNL e famiglie serie. Pensiamo noi a trovarti il lavoro giusto.';
+    if(ct) ct.textContent='Il tuo prossimo lavoro ti aspetta.';
+  } else {
+    sw.classList.remove('lav');
+    sw.querySelector('.lbl').textContent='Famiglia';
+    cta.textContent='Trova la tua badante';
+    cta.onclick=function(){goPage('famiglie')};
+    if(ht) ht.innerHTML='Trova la <em>badante giusta</em><br>per la tua famiglia';
+    if(hs) hs.textContent='Assistenti familiari, colf, babysitter, dog sitter e supporto compiti. Ogni profilo verificato con documenti, referenze e colloquio. Buste paga incluse nella stessa piattaforma.';
+    if(ct) ct.textContent='Inizia in 2 minuti.';
+  }
+}
+(function initRole(){
+  var saved=null;
+  try{saved=sessionStorage.getItem('fcRole')}catch(e){}
+  if(saved==='fam'||saved==='lav'){
+    ROLE=saved;
+    document.getElementById('splash').classList.add('hidden');
+    applyRole(saved);
+  } else if(saved==='skip'){
+    document.getElementById('splash').classList.add('hidden');
+  } else {
+    document.body.style.overflow='hidden';
+  }
+})();
+
+// ══ DATABASE PROFILI ══
+var PROFILES=[
+  {id:1,cat:"assistente",name:"Elena P.",age:48,zona:"Parioli",bg:"#1751C4",rating:4.9,reviews:23,
+   desc:"12 anni di esperienza come badante. Specializzata in Alzheimer e pazienti allettati. Italiano fluente, patente di guida.",
+   skills:["Alzheimer","Allettati","Patente","Farmaci"],price:"€12/ora",avail:"Disponibile subito",
+   stats:[{n:"12",l:"anni esp."},{n:"4.9★",l:"valutazione"},{n:"23",l:"recensioni"}],
+   badges:["Verificata ✓","Documenti OK","Referenze 2/2"]},
+  {id:2,cat:"assistente",name:"Oksana V.",age:52,zona:"Prati",bg:"#0A5C42",rating:5.0,reviews:18,
+   desc:"10 anni di esperienza con anziani non autosufficienti. Disponibile per convivenza H24. Ucraino e italiano.",
+   skills:["H24 convivente","Parkinson","Non autosuff.","Igiene avanzata"],price:"€1.200/mese",avail:"Disponibile da luglio",
+   stats:[{n:"10",l:"anni esp."},{n:"5.0★",l:"valutazione"},{n:"18",l:"recensioni"}],
+   badges:["Verificata ✓","Documenti OK","Referenze 2/2"]},
+  {id:3,cat:"assistente",name:"Maria C.",age:55,zona:"EUR",bg:"#7C3AED",rating:4.8,reviews:31,
+   desc:"20 anni nel settore. Italiana, specializzata in post-operatorio e assistenza medicalizzata.",
+   skills:["Post-op","Medicazioni","Ausili","Cucina dietetica"],price:"€11/ora",avail:"Part-time disponibile",
+   stats:[{n:"20",l:"anni esp."},{n:"4.8★",l:"valutazione"},{n:"31",l:"recensioni"}],
+   badges:["Verificata ✓","Documenti OK","Referenze 2/2"]},
+  {id:4,cat:"colf",name:"Amira B.",age:38,zona:"Tiburtina",bg:"#0E7490",rating:4.7,reviews:12,
+   desc:"8 anni di esperienza come collaboratrice domestica. Pulizie approfondite, stireria, gestione casa. Flessibile sugli orari.",
+   skills:["Pulizie fond.","Stireria","Spesa","Cucina"],price:"€9/ora",avail:"Lun-Ven disponibile",
+   stats:[{n:"8",l:"anni esp."},{n:"4.7★",l:"valutazione"},{n:"12",l:"recensioni"}],
+   badges:["Verificata ✓","Documenti OK"]},
+  {id:5,cat:"colf",name:"Fatima R.",age:42,zona:"Appio",bg:"#BE185D",rating:4.9,reviews:27,
+   desc:"Colf con esperienza in famiglie con bambini. Attenta, affidabile, cucina piatti italiani e marocchini.",
+   skills:["Pulizie","Cucina","Bambini","Lavanderia"],price:"€10/ora",avail:"Disponibile subito",
+   stats:[{n:"15",l:"anni esp."},{n:"4.9★",l:"valutazione"},{n:"27",l:"recensioni"}],
+   badges:["Verificata ✓","Documenti OK","Referenze 2/2"]},
+  {id:6,cat:"babysitter",name:"Sofia C.",age:24,zona:"Montesacro",bg:"#E84C2B",rating:4.9,reviews:14,
+   desc:"Laurea in scienze dell'educazione. Madrelingua italiana, inglese fluente. Esperienza 0-10 anni.",
+   skills:["Inglese","0-3 anni","Compiti","Creatività"],price:"€11/ora",avail:"Pomeriggi + weekend",
+   stats:[{n:"3",l:"anni esp."},{n:"4.9★",l:"valutazione"},{n:"14",l:"recensioni"}],
+   badges:["Verificata ✓","Laureata"]},
+  {id:7,cat:"babysitter",name:"Giulia M.",age:29,zona:"Trastevere",bg:"#C47D0A",rating:5.0,reviews:20,
+   desc:"Educatrice professionale. Specializzata in bambini con bisogni speciali. Disponibile sera e weekend.",
+   skills:["BES/DSA","Prima infanzia","Ritiro scuola","Sera/weekend"],price:"€13/ora",avail:"Sere e weekend",
+   stats:[{n:"6",l:"anni esp."},{n:"5.0★",l:"valutazione"},{n:"20",l:"recensioni"}],
+   badges:["Verificata ✓","Educatrice prof.","Referenze 2/2"]},
+  {id:8,cat:"dogsitter",name:"Marco D.",age:31,zona:"EUR",bg:"#065F46",rating:4.8,reviews:38,
+   desc:"Dog sitter professionista certificato ENCI. Passeggiate, pensione in casa e toelettatura base. Casa con giardino.",
+   skills:["Cert. ENCI","Pensione","Toelettatura","Farmaci"],price:"€12/ora",avail:"7 giorni su 7",
+   stats:[{n:"5",l:"anni esp."},{n:"4.8★",l:"valutazione"},{n:"38",l:"recensioni"}],
+   badges:["Verificato ✓","Cert. ENCI","Casa con giardino"]},
+  {id:9,cat:"dogsitter",name:"Laura B.",age:26,zona:"Parioli",bg:"#7C3AED",rating:4.9,reviews:22,
+   desc:"Amante degli animali da sempre. Esperta in razze medio-grandi. Passeggiate quotidiane e visite domiciliari.",
+   skills:["Razze grandi","Passeggiate","Visite dom.","Cuccioli"],price:"€10/ora",avail:"Mattine disponibili",
+   stats:[{n:"3",l:"anni esp."},{n:"4.9★",l:"valutazione"},{n:"22",l:"recensioni"}],
+   badges:["Verificata ✓","Referenze 2/2"]},
+  {id:10,cat:"ripetizioni",name:"Prof. Andrea M.",age:35,zona:"Prati",bg:"#1751C4",rating:4.9,reviews:45,
+   desc:"Insegnante di matematica e fisica con 10 anni di esperienza. Recupero debiti, maturità e accesso universitario.",
+   skills:["Matematica","Fisica","Maturità","Università"],price:"€25/ora",avail:"Pomeriggi disponibili",
+   stats:[{n:"10",l:"anni esp."},{n:"4.9★",l:"valutazione"},{n:"45",l:"recensioni"}],
+   badges:["Verificato ✓","Laureato","Abilitato"]},
+  {id:11,cat:"ripetizioni",name:"Chiara S.",age:27,zona:"Tiburtina",bg:"#0E7490",rating:5.0,reviews:19,
+   desc:"Madrelingua inglese con laurea in lingue. Inglese, spagnolo e preparazione certificazioni Cambridge.",
+   skills:["Inglese","Spagnolo","Cambridge","Conversazione"],price:"€22/ora",avail:"Sera e weekend",
+   stats:[{n:"4",l:"anni esp."},{n:"5.0★",l:"valutazione"},{n:"19",l:"recensioni"}],
+   badges:["Verificata ✓","Madrelingua","Cambridge cert."]}
+];
+var CAT_COLORS={
+  assistente:{bg:"#1751C4",label:"Badante"},
+  colf:{bg:"#0A5C42",label:"Colf"},
+  babysitter:{bg:"#E84C2B",label:"Babysitter"},
+  dogsitter:{bg:"#C47D0A",label:"Dog sitter"},
+  ripetizioni:{bg:"#7C3AED",label:"Ripetizioni"}
+};
+function initials(name){return name.split(' ').map(function(w){return w[0]}).join('').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase()}
+function renderStars(rating){
+  var full=Math.round(rating),html='';
+  for(var i=1;i<=5;i++) html+='<span class="star'+(i<=full?' full':'')+'">★</span>';
+  return html+'<span class="tcard-rating">'+rating.toFixed(1)+'</span>';
+}
+function renderCard(p){
+  var cc=CAT_COLORS[p.cat]||{bg:"#333",label:p.cat};
+  return '<div class="tcard" onclick="openModal('+p.id+')">'
+    +'<div class="tcard-photo">'
+    +'<div class="tcard-photo-bg" style="background:linear-gradient(135deg,'+cc.bg+'CC,'+cc.bg+'88)">'+initials(p.name)+'</div>'
+    +'<div class="tcard-photo-grad"></div>'
+    +'<div class="tcard-cat-badge" style="background:'+cc.bg+'">'+cc.label+'</div>'
+    +'<div class="tcard-verified">✓ VERIFICATO</div>'
+    +'<div class="tcard-overlay">'
+    +'<div class="tcard-overlay-name">'+p.name+' <span style="font-size:13px;font-weight:400;opacity:.8">'+p.age+' anni</span></div>'
+    +'<div class="tcard-overlay-meta">📍 '+p.zona+'</div>'
+    +'<div class="tcard-stars">'+renderStars(p.rating)+'</div>'
+    +'</div></div>'
+    +'<div class="tcard-body">'
+    +'<div class="tcard-desc">'+p.desc+'</div>'
+    +'<div class="tcard-skills">'+p.skills.slice(0,3).map(function(s,i){return '<span class="skill'+(i<2?' highlight':'')+'">'+s+'</span>'}).join('')+(p.skills.length>3?'<span class="skill">+'+(p.skills.length-3)+'</span>':'')+'</div>'
+    +'<div class="tcard-footer"><div class="tcard-price">'+p.price+' <span>netti</span></div><div class="tcard-avail">'+p.avail+'</div></div>'
+    +'</div></div>';
+}
+var currentFilter='tutti';
+function filterProfiles(cat,btn){
+  currentFilter=cat;
+  document.querySelectorAll('.cf-btn').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
+  else{
+    var btns=document.querySelectorAll('.cf-btn');
+    var order=['tutti','assistente','colf','babysitter','dogsitter','ripetizioni'];
+    var idx=order.indexOf(cat);
+    if(idx>=0&&btns[idx]) btns[idx].classList.add('active');
+  }
+  var filtered=cat==='tutti'?PROFILES:PROFILES.filter(function(p){return p.cat===cat});
+  var grid=document.getElementById('profili-grid');
+  if(grid) grid.innerHTML=filtered.map(renderCard).join('');
+}
+function renderHomeProfiles(){
+  var grid=document.getElementById('home-profiles');
+  if(grid) grid.innerHTML=PROFILES.slice(0,8).map(renderCard).join('');
+}
+function openModal(id){
+  var p=PROFILES.find(function(x){return x.id===id});
+  if(!p) return;
+  var cc=CAT_COLORS[p.cat]||{bg:"#333"};
+  document.getElementById('modal-photo-bg').style.background='linear-gradient(135deg,'+cc.bg+'CC,'+cc.bg+'88)';
+  document.getElementById('modal-photo-bg').textContent=initials(p.name);
+  document.getElementById('modal-name').textContent=p.name+', '+p.age+' anni';
+  document.getElementById('modal-meta').textContent='📍 '+p.zona;
+  document.getElementById('modal-stars').innerHTML=renderStars(p.rating)+'<span style="color:rgba(255,255,255,.6);font-size:12px;margin-left:6px">('+p.reviews+' recensioni)</span>';
+  document.getElementById('modal-badges').innerHTML=p.badges.map(function(b,i){return '<span class="mbadge'+(i===0?' v':'')+'">'+b+'</span>'}).join('');
+  document.getElementById('modal-desc').textContent=p.desc;
+  document.getElementById('modal-skills').innerHTML=p.skills.map(function(s){return '<span class="modal-skill">'+s+'</span>'}).join('');
+  document.getElementById('modal-stats').innerHTML=p.stats.map(function(s){return '<div class="mstat"><div class="mstat-n">'+s.n+'</div><div class="mstat-l">'+s.l+'</div></div>'}).join('');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){
+  if(e && e.target!==document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ══ NAVIGAZIONE ══
+function goPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  var pg=document.getElementById('page-'+id);
+  if(pg) pg.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='profili') filterProfiles(currentFilter);
+}
+function scrollToId(id){
+  setTimeout(function(){
+    var el=document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },350);
+}
+function toggleMobile(){
+  var m=document.getElementById('mobile-menu');
+  m.style.display=(m.style.display==='flex')?'none':'flex';
+}
+function closeMobile(){document.getElementById('mobile-menu').style.display='none'}
+
+// ══ TABS HERO ══
+function switchTab(n){
+  document.querySelectorAll('.ct').forEach(function(t,i){t.classList.toggle('on',i===n)});
+  for(var i=0;i<5;i++){
+    var p=document.getElementById('p'+i);
+    if(p) p.classList.toggle('show',i===n);
+  }
+}
+function doSearch(){
+  var q=(document.getElementById('si').value||'').toLowerCase();
+  var map={babysitter:'babysitter',bambin:'babysitter',colf:'colf',pulizi:'colf',stir:'colf',assistente:'assistente',badante:'assistente',anzian:'assistente',alzheimer:'assistente',dog:'dogsitter',cane:'dogsitter',gatto:'dogsitter',ripetizion:'ripetizioni',compiti:'ripetizioni',lezion:'ripetizioni',matemat:'ripetizioni'};
+  var cat='tutti';
+  for(var k in map){if(q.indexOf(k)>=0){cat=map[k];break}}
+  goPage('profili');
+  filterProfiles(cat);
+}
+
+// ══ FORM ══
+function tChip(el,type){
+  el.classList.toggle(type==='fam'?'ob':'og');
+  calcPct(type);
+}
+function calcPct(type){
+  var nome,tel,extra,chips;
+  if(type==='fam'){
+    nome=(document.getElementById('f-nome')||{}).value||'';
+    tel=(document.getElementById('f-tel')||{}).value||'';
+    var z=document.getElementById('f-zona');
+    extra=z&&z.value?1:0;
+    chips=document.querySelectorAll('#chips-fam .ob').length;
+  } else {
+    nome=(document.getElementById('l-nome')||{}).value||'';
+    tel=(document.getElementById('l-tel')||{}).value||'';
+    var nz=document.getElementById('l-naz');
+    extra=nz&&nz.value?1:0;
+    chips=document.querySelectorAll('#chips-lav .og').length;
+  }
+  var score=(nome.length>1?25:0)+(tel.length>6?25:0)+(extra?20:0)+(chips>0?30:0);
+  score=Math.min(100,score);
+  var bar=document.getElementById('bar-'+type);
+  var pct=document.getElementById('pct-'+type);
+  if(bar) bar.style.width=score+'%';
+  if(pct) pct.textContent=score+'%';
+}
+function submitForm(type){
+  var nameId=type==='fam'?'f-nome':'l-nome';
+  var telId=type==='fam'?'f-tel':'l-tel';
+  var ok=true;
+  [nameId,telId].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&!el.value.trim()){el.style.borderColor='#E84C2B';if(ok)el.focus();ok=false}
+    else if(el) el.style.borderColor='';
+  });
+  if(!ok) return;
+  document.getElementById(type+'-form').style.display='none';
+  document.getElementById(type+'-success').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetForm(type){
+  document.getElementById(type+'-form').style.display='block';
+  document.getElementById(type+'-success').style.display='none';
+  var bar=document.getElementById('bar-'+type);
+  var pct=document.getElementById('pct-'+type);
+  if(bar) bar.style.width='0%';
+  if(pct) pct.textContent='0%';
+}
+function showFN(input,targetId){
+  var el=document.getElementById(targetId);
+  if(el&&input.files&&input.files[0]) el.textContent='File: '+input.files[0].name;
+}
+
+// ══ FAQ ══
+var FAQ=[
+  {q:"Quanto costa il servizio per le famiglie?",a:"Basic €199 (3 profili verificati), Standard €350 (5 profili + colloqui organizzati), Premium €580 (tutto incluso + contratto INPS + follow-up 30 giorni). Pagamento unico, nessuna commissione ricorrente. La gestione paghe è opzionale a €19/mese."},
+  {q:"L'iscrizione è gratuita per chi offre il proprio servizio?",a:"Sì, completamente gratuita e per sempre. Chi offre servizi (badanti, colf, babysitter, dog sitter, insegnanti) si iscrive gratis, crea il profilo e viene contattato dalle famiglie. Il nostro guadagno viene interamente dai pacchetti famiglie."},
+  {q:"La badante diventa dipendente vostra o nostra?",a:"La badante è assunta direttamente da voi come datore di lavoro privato, con regolare contratto CCNL Colf e assistenti familiari. Noi siamo un servizio di selezione e consulenza — vi assistiamo nella formalizzazione, ma il contratto è tra voi e la lavoratrice."},
+  {q:"Come verificate i profili?",a:"Ogni candidata passa per: verifica dei documenti di identità e permesso di soggiorno, colloquio telefonico di 20-30 minuti, contatto con almeno 2 referenze (ex famiglie o datori di lavoro). Solo dopo la verifica completa il profilo entra nel database."},
+  {q:"Cosa succede se la badante non funziona?",a:"Offriamo sostituzione gratuita entro 30 giorni dall'inserimento (pacchetti Standard e Premium). Se la persona scelta non si rivela adatta, cerchiamo una sostituzione senza costi aggiuntivi."},
+  {q:"Operate solo a Roma?",a:"Sì, esclusivamente a Roma e provincia (tutti i 15 Municipi più la cintura fino a 30 km). La scelta è intenzionale: la qualità del servizio dipende dalla conoscenza profonda del territorio."}
+];
+function buildFaq(id){
+  var c=document.getElementById(id);
+  if(!c) return;
+  c.innerHTML=FAQ.map(function(f,i){
+    var eid='fq-'+id+'-'+i;
+    return '<div class="faq-item" id="'+eid+'"><button class="faq-q" onclick="toggleFaq(\''+eid+'\')">'+f.q+'</button><div class="faq-a">'+f.a+'</div></div>';
+  }).join('');
+}
+function toggleFaq(id){document.getElementById(id).classList.toggle('open')}
+
+// ══ TABELLA CONFRONTO ══
+var compareRows=[
+  ["Profili verificati presentati","3","5","5"],
+  ["Schede dettagliate","✓","✓","✓"],
+  ["Verifica documenti di identità","✓","✓","✓"],
+  ["Verifica permesso di soggiorno","✓","✓","✓"],
+  ["Referenze telefoniche verificate","—","2 per candidata","2 per candidata"],
+  ["Colloqui organizzati da noi","—","✓","✓"],
+  ["Consulenza nella scelta finale","—","✓","✓"],
+  ["Supporto contratto INPS","—","—","✓"],
+  ["Iscrizione Cas.Sa.Colf assistita","—","—","✓"],
+  ["Follow-up 30 giorni","—","—","✓"],
+  ["Sostituzione gratuita 30 gg","—","—","✓"],
+  ["Risposta entro","24 ore","24 ore","24 ore"]
+];
+(function(){
+  var ct=document.getElementById('compare-table');
+  if(!ct) return;
+  ct.innerHTML=compareRows.map(function(r){
+    return '<tr>'+r.map(function(c,ci){
+      var col=c==='✓'?'#0A5C42':(c==='—'?'#D1D5DB':'#374151');
+      var fs=c==='✓'?'15px':'13.5px';
+      return '<td style="color:'+col+';font-size:'+fs+'">'+c+'</td>';
+    }).join('')+'</tr>';
+  }).join('');
+})();
+
+// ══ SIMULATORE CCNL ══
+function calcSim(){
+  var ore=parseFloat(document.getElementById('so').value)||25;
+  var paga=parseFloat(document.getElementById('sp').value)||10;
+  var conv=document.getElementById('st').value==='c';
+  var oreM=ore*52/12;
+  var netta=paga*oreM;
+  var inps=netta*(conv?0.13:0.1664);
+  var t13=netta/12;
+  var tfr=netta/13.5;
+  var tot=netta+inps+t13+tfr;
+  function f(n){return '€ '+Math.round(n).toLocaleString('it-IT')}
+  document.getElementById('rn').textContent=f(netta);
+  document.getElementById('ri').textContent=f(inps);
+  document.getElementById('r3').textContent=f(t13);
+  document.getElementById('rt').textContent=f(tfr);
+  document.getElementById('rv').textContent=f(tot);
+}
+
+// ══ INIT ══
+buildFaq('faq-home');
+calcSim();
+renderHomeProfiles();
+filterProfiles('tutti');
+</script>
+</body>
+</html>
